@@ -1,15 +1,15 @@
-,ENTRYTYPE,ID,author,journal,number,pages,title,volume,year
-0,article,berger1995,Thomas D. Berger and Erik Trinkaus,Journal of Archaeological Science,,841--852,Patterns of Trauma among the Neandertals,22,1995
-1,article,shirani2010,Gholamreza Shirani and Mohammad Hosein Kalantar Motamedi and Alireza Ashuri and Pooyan Sadr Eshkevari,"Journal of Emergencies, Trauma, and Shock",4,314--317,Prevalence and patters of combat sport related maxillofacial injuries,3,2010
-2,article,gartlandinjury2001,"Gartland, S and Malik, {MHA} and Lovell, {ME}",British Journal of Sports Medicine,,308--313,Injury and injury rates in Muay Thai kick boxing,35,2001
-3,article,hayesthe2008,"Hayes, {JR} and Groner, {JI}",Journal of Pediatric Surgery,,928--930,The increasing incidence of snowboard-related trauma,43,2008
-4,article,ballequestrian2007,"Ball, {CG} and Ball, {JE} and Kirkpatrick, {AW} and Mulloy, {RH}",The American Journal of Surgery,,636--640,"Equestrian injuries: incidence, injury patterns, and risk factors for 10 years of major traumatic injuries",193,2007
-5,article,powellsex-related2000,"Powell, {JW} and {Barber-Foss,} {KD}",The American Journal of Sports Medicine,3,385--391,Sex-related injury patterns among selected high school sports,28,2000
-6,article,murtaughinjury2001,"Murtaugh, K",Official Journal of the American College of Sports Medicine,,201--207,Injury patterns among female field hockey players,,2001
-7,article,powellinjury1999,"Powell, {JW} and {Barber-Foss,} {KD}",Journal of Athletic Training,3,277--284,Injury patterns in selected high school sports: a review of the 1995-1997 seasons,34,1999
-8,article,solagberumotorcycle2006,"Solagberu, {BA} and Ofoegbu, {CKP} and Nasir, {AA}",Injury Prevention,,266--268,"Motorcycle injuries in a developing country and the vulnerability of riders, passengers, and pedestrians",12,2006
-9,article,korkiaan1994,"Korkia, {PK} and {Tunstall-Pedoe,} {DS}",British Journal of Sports Medicine,3,191--196,An epidemiological investigation of training and injury patterns in British triathletes.,28,1994
-10,article,chardracquet1987,"Chard, {MD} and Lachmann, {SM}",British Journal of Sports Medicine,4,150--153,Racquet sports--patterns of injury presenting to a sports injury clinic.,21,1987
-11,article,hootmanepidemiology2007,"Hootman, {JM} and Dick, R and Agel, J",Journal of Athletic Training,2,311--319,Epidemiology of collegiate injuries for 15 sports: summary and recommendations for injury prevention initiatives,42,2007
-12,article,marshalldescriptive2007,"Marshall, {SW} and Covassin, T and Dick, R",Journal of Athletic Training,2,234--240,"Descriptive epidemiology of collegiate women's gymnastics injuries: National Collegiate Athletic Association Injury Surveillance System, 1988–1989 through  …",42,2007
-13,article,mcbethalpine2009,"{McBeth,} {PB} and Ball, {CG} and Mulloy, {RH}",The American Journal of Surgery,5,560--564,"Alpine ski and snowboarding traumatic injuries: incidence, injury patterns, and risk factors for 10 years",197,2009
+,%comment,%email,ENTRYTYPE,ID,author,journal,number,pages,title,volume,year
+0,Blah,Blah2,article,berger1995,Thomas D. Berger and Erik Trinkaus,Journal of Archaeological Science,,841--852,Patterns of Trauma among the Neandertals,22,1995
+1,,,article,shirani2010,Gholamreza Shirani and Mohammad Hosein Kalantar Motamedi and Alireza Ashuri and Pooyan Sadr Eshkevari,"Journal of Emergencies, Trauma, and Shock",4,314--317,Prevalence and patters of combat sport related maxillofacial injuries,3,2010
+2,,,article,gartlandinjury2001,"Gartland, S and Malik, {MHA} and Lovell, {ME}",British Journal of Sports Medicine,,308--313,Injury and injury rates in Muay Thai kick boxing,35,2001
+3,,,article,hayesthe2008,"Hayes, {JR} and Groner, {JI}",Journal of Pediatric Surgery,,928--930,The increasing incidence of snowboard-related trauma,43,2008
+4,,,article,ballequestrian2007,"Ball, {CG} and Ball, {JE} and Kirkpatrick, {AW} and Mulloy, {RH}",The American Journal of Surgery,,636--640,"Equestrian injuries: incidence, injury patterns, and risk factors for 10 years of major traumatic injuries",193,2007
+5,,,article,powellsex-related2000,"Powell, {JW} and {Barber-Foss,} {KD}",The American Journal of Sports Medicine,3,385--391,Sex-related injury patterns among selected high school sports,28,2000
+6,,,article,murtaughinjury2001,"Murtaugh, K",Official Journal of the American College of Sports Medicine,,201--207,Injury patterns among female field hockey players,,2001
+7,,,article,powellinjury1999,"Powell, {JW} and {Barber-Foss,} {KD}",Journal of Athletic Training,3,277--284,Injury patterns in selected high school sports: a review of the 1995-1997 seasons,34,1999
+8,,,article,solagberumotorcycle2006,"Solagberu, {BA} and Ofoegbu, {CKP} and Nasir, {AA}",Injury Prevention,,266--268,"Motorcycle injuries in a developing country and the vulnerability of riders, passengers, and pedestrians",12,2006
+9,,,article,korkiaan1994,"Korkia, {PK} and {Tunstall-Pedoe,} {DS}",British Journal of Sports Medicine,3,191--196,An epidemiological investigation of training and injury patterns in British triathletes.,28,1994
+10,,,article,chardracquet1987,"Chard, {MD} and Lachmann, {SM}",British Journal of Sports Medicine,4,150--153,Racquet sports--patterns of injury presenting to a sports injury clinic.,21,1987
+11,,,article,hootmanepidemiology2007,"Hootman, {JM} and Dick, R and Agel, J",Journal of Athletic Training,2,311--319,Epidemiology of collegiate injuries for 15 sports: summary and recommendations for injury prevention initiatives,42,2007
+12,,,article,marshalldescriptive2007,"Marshall, {SW} and Covassin, T and Dick, R",Journal of Athletic Training,2,234--240,"Descriptive epidemiology of collegiate women's gymnastics injuries: National Collegiate Athletic Association Injury Surveillance System, 1988–1989 through  …",42,2007
+13,,,article,mcbethalpine2009,"{McBeth,} {PB} and Ball, {CG} and Mulloy, {RH}",The American Journal of Surgery,5,560--564,"Alpine ski and snowboarding traumatic injuries: incidence, injury patterns, and risk factors for 10 years",197,2009
