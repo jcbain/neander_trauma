@@ -30,7 +30,12 @@ tbl
 chisq.test(tbl) 
 # calculate effect sizes
 
-tableMatrix<-as.data.frame.matrix(tbl)
-tableMatrix$totals<-unname(rowSums(tableMatrix[1:nrow(tableMatrix),])) # find the total fractures per sport and assign it to a colmn
+################################################
+## create a dataframe of the contigency table ##
+################################################
 
-sum(tableMatrix[1,])
+tableMatrix<-as.data.frame.matrix(tbl) ## change the table into an intuitive dataframe
+tableMatrix$totals<-unname(rowSums(tableMatrix[1:nrow(tableMatrix),])) # find the total fractures per sport and assign it to a colmn
+props<-tableMatrix[1:length(tableMatrix)-1]/tableMatrix$totals # turn the table into a proportional table
+
+rowSums(props[1:nrow(props),]) ## verify that I took the proportion by seeing all values add to one
