@@ -39,3 +39,13 @@ tableMatrix$totals<-unname(rowSums(tableMatrix[1:nrow(tableMatrix),])) # find th
 props<-tableMatrix[1:length(tableMatrix)-1]/tableMatrix$totals # turn the table into a proportional table
 
 rowSums(props[1:nrow(props),]) ## verify that I took the proportion by seeing all values add to one
+
+## welp, looks like I need to redo this for plotting...
+## didn't think that through
+## I need to find a way to aggregate the sport dataframe by proportion
+
+
+###########
+## plots ##
+###########
+ggplot(head(df),aes(x = factor(Var1),y=Freq)) + geom_point(aes(color=Var2)) 
