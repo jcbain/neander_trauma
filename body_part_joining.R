@@ -24,13 +24,11 @@ trunk <- tm$`upper trunk` + tm$back
 final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
 
-n<-rbind(neander_tot,final[3,])
-
-
+# recreate data from Berger Trinkaus papers
 neander_tot<-c(8,4,7,1,1,3,3)
 
 
-
+# apply chi square for neander total and every sport
 t(apply(final,1,function(x) {
   new<- cbind(neander_tot,x)
   ch <- chisq.test(new)
