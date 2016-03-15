@@ -1,5 +1,7 @@
 setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 
+library(plyr)
+
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
 
@@ -19,5 +21,18 @@ foot <- tm$foot + tm$toe + tm$ankle
 trunk <- tm$`upper trunk` + tm$back
 
 # combine columns into a new dataframe
-activity <- rownames(tm)
-final<-as.data.frame(cbind(activity,head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
+final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
+rownames(final)<-rownames(tm) # index will be the activity name
+
+n<-rbind(neander_tot,final[3,])
+
+
+neander_tot<-c(8,4,7,1,1,3,3)
+
+
+
+t(apply(final,1,function(x) {
+  new<- cbind(neander_tot,x)
+  ch <- chisq.test(new)
+  c(unname(ch$statistic), ch$p.value)}))
+
