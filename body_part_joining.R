@@ -18,3 +18,6 @@ leg <- tm$knee + tm$`lower leg` + tm$`upper leg`
 foot <- tm$foot + tm$toe + tm$ankle
 trunk <- tm$`upper trunk` + tm$back
 
+# combine columns into a new dataframe
+activity <- rownames(tm)
+final<-as.data.frame(cbind(activity,head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
