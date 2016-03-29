@@ -50,3 +50,15 @@ nwsd<-t(apply(final,1,function(x) {
   new<- cbind(nea_wo_shan1_djd,x)
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
+
+# change tables above into data frames
+nt<-as.data.frame(nt)
+nwd<-as.data.frame(nwd)
+nws<-as.data.frame(nws)
+nwsd<-as.data.frame(nwsd)
+
+#  find those activities that are similar to neanderthals
+
+nt[nt$V2>.05,]
+
+
