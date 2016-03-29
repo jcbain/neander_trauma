@@ -15,7 +15,7 @@ tm<-as.data.frame.matrix(orig_table) # tm stands for table matrix
 head_neck <- tm$face + tm$neck + tm$head
 shoulder_arm <- tm$`upper arm` + tm$`lower arm` + tm$shoulder + tm$elbow
 hand <- tm$hand + tm$finger + tm$wrist
-pelvis <- tm$`pubic region` + tm$hip
+pelvis <- tm$`pubic region` + tm$hip # look up Berger femoral neck categorization and within the data
 leg <- tm$knee + tm$`lower leg` + tm$`upper leg`
 foot <- tm$foot + tm$toe + tm$ankle
 trunk <- tm$`upper trunk` + tm$back
@@ -33,4 +33,5 @@ t(apply(final,1,function(x) {
   new<- cbind(neander_tot,x)
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
+
 
