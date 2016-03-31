@@ -24,41 +24,5 @@ trunk <- tm$`upper trunk` + tm$back
 final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
 
-# recreate data from Berger Trinkaus papers
-neander_tot<-c(8,4,7,1,1,3,3)
-nea_wo_djd<-c(7,4,7,1,0,3,1)
-nea_wo_shan1<-c(6,4,5,1,1,3,1)
-nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
-
-# apply chi square for neander total and every sport
-nt<-t(apply(final,1,function(x) {
-  new<- cbind(neander_tot,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-nwd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_djd,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-nws<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-nwsd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1_djd,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-# change tables above into data frames
-nt<-as.data.frame(nt)
-nwd<-as.data.frame(nwd)
-nws<-as.data.frame(nws)
-nwsd<-as.data.frame(nwsd)
-
-#  find those activities that are similar to neanderthals
-
-nt[nt$V2>.05,]
-
-
+# write the contigency table (data frame) to a csv
+write.csv(final,file = 'Data/contigency.csv' )
