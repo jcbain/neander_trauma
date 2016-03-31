@@ -1,0 +1,63 @@
+setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
+
+library(plyr)
+
+# read in the data
+df <- read.csv('Data/NEISS/sport_category_final.csv')
+
+# create a contigency table 
+orig_table <- table(df$prod1,df$body_part)
+
+# create a datafame from the contigency table (at least one that is intuitive)
+tm<-as.data.frame.matrix(orig_table) # tm stands for table matrix
+
+# create new columns based on body part combinations
+head_neck <- tm$face + tm$neck + tm$head
+shoulder_arm <- tm$`upper arm` + tm$`lower arm` + tm$shoulder + tm$elbow
+hand <- tm$hand + tm$finger + tm$wrist
+pelvis <- tm$`pubic region` + tm$hip # look up Berger femoral neck categorization and within the data
+leg <- tm$knee + tm$`lower leg` + tm$`upper leg`
+foot <- tm$foot + tm$toe + tm$ankle
+trunk <- tm$`upper trunk` + tm$back
+
+# combine columns into a new dataframe
+final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
+rownames(final)<-rownames(tm) # index will be the activity name
+
+# recreate data from Berger Trinkaus papers
+neander_tot<-c(8,4,7,1,1,3,3)
+nea_wo_djd<-c(7,4,7,1,0,3,1)
+nea_wo_shan1<-c(6,4,5,1,1,3,1)
+nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
+
+# apply chi square for neander total and every sport
+nt<-t(apply(final,1,function(x) {
+  new<- cbind(neander_tot,x)
+  ch <- chisq.test(new)
+  c(unname(ch$statistic), ch$p.value)}))
+
+nwd<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_djd,x)
+  ch <- chisq.test(new)
+  c(unname(ch$statistic), ch$p.value)}))
+
+nws<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1,x)
+  ch <- chisq.test(new)
+  c(unname(ch$statistic), ch$p.value)}))
+
+nwsd<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1_djd,x)
+  ch <- chisq.test(new)
+  c(unname(ch$statistic), ch$p.value)}))
+
+# change tables above into data frames
+nt<-as.data.frame(nt)
+nwd<-as.data.frame(nwd)
+nws<-as.data.frame(nws)
+nwsd<-as.data.frame(nwsd)
+
+#  find those activities that are similar to neanderthals
+
+nt[nt$V2>.05,]
+
