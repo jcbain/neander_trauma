@@ -73,3 +73,5 @@ nwsd<-na.omit(nwsd)
 #  find those activities that are similar to neanderthals
 nt[nt$V2>.05,]
 nwd[nwd$V2>.05,]
+nws[nt$V2>.05,]
+nwsd[nwd$V2>.05,]
