@@ -58,6 +58,12 @@ nwd<-as.data.frame(nwd,row.names=rownames(nwd))
 nws<-as.data.frame(nws,row.names=rownames(nws))
 nwsd<-as.data.frame(nwsd,row.names = rownames(nwsd))
 
+# find those rows activities resulting in NaNs or the expected value within the chi square test is nothing
+nt[is.nan(nt$V1),]
+nwd[is.nan(nwd$V1),]
+nws[is.nan(nws$V1),]
+nwsd[is.nan(nwsd$V1),]
+
 #  find those activities that are similar to neanderthals
 
 nt[nt$V2>.05,]
