@@ -64,7 +64,12 @@ nwd[is.nan(nwd$V1),]
 nws[is.nan(nws$V1),]
 nwsd[is.nan(nwsd$V1),]
 
-#  find those activities that are similar to neanderthals
+# remove NAs for final evaluation
+nt<-na.omit(nt)
+nwd<-na.omit(nwd)
+nws<-na.omit(nws)
+nwsd<-na.omit(nwsd)
 
+#  find those activities that are similar to neanderthals
 nt[nt$V2>.05,]
 nwd[nwd$V2>.05,]
