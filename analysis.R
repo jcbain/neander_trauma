@@ -20,6 +20,7 @@ leg <- tm$knee + tm$`lower leg` + tm$`upper leg`
 foot <- tm$foot + tm$toe + tm$ankle
 trunk <- tm$`upper trunk` + tm$back
 
+
 # combine columns into a new dataframe
 final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
@@ -52,12 +53,12 @@ nwsd<-t(apply(final,1,function(x) {
   c(unname(ch$statistic), ch$p.value)}))
 
 # change tables above into data frames
-nt<-as.data.frame(nt)
-nwd<-as.data.frame(nwd)
-nws<-as.data.frame(nws)
-nwsd<-as.data.frame(nwsd)
+nt<-as.data.frame(nt,row.names = rownames(nt))
+nwd<-as.data.frame(nwd,row.names=rownames(nwd))
+nws<-as.data.frame(nws,row.names=rownames(nws))
+nwsd<-as.data.frame(nwsd,row.names = rownames(nwsd))
 
 #  find those activities that are similar to neanderthals
 
 nt[nt$V2>.05,]
-
+nwd[nwd$V2>.05,]
