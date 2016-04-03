@@ -84,7 +84,7 @@ nwsd[nwd$`P-Value`>.05,]
 
 chi2cleanup<-function(table){
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
-  frame<-as.data.frame(df,row.names = rownames(table))
+  frame<-as.data.frame(table,row.names = rownames(table))
   names(frame) = c('X2','P-Value')
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
@@ -95,4 +95,3 @@ chi2cleanup<-function(table){
   return(c)
 }
 
-f<-s(nt)
