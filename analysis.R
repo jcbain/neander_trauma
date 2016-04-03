@@ -64,14 +64,21 @@ nwd[is.nan(nwd$V1),]
 nws[is.nan(nws$V1),]
 nwsd[is.nan(nwsd$V1),]
 
+
 # remove NAs for final evaluation
 nt<-na.omit(nt)
 nwd<-na.omit(nwd)
 nws<-na.omit(nws)
 nwsd<-na.omit(nwsd)
 
+names(nt)<- c('X2','P-Value')
+names(nwd)<- c('X2','P-Value')
+names(nws)<- c('X2','P-Value')
+names(nwsd)<- c('X2','P-Value')
+
 #  find those activities that are similar to neanderthals
-nt[nt$V2>.05,]
-nwd[nwd$V2>.05,]
-nws[nt$V2>.05,]
-nwsd[nwd$V2>.05,]
+nt[nt$`P-Value`>.05,]
+nwd[nwd$`P-Value`>.05,]
+nws[nt$`P-Value`>.05,]
+nwsd[nwd$`P-Value`>.05,]
+
