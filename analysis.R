@@ -52,36 +52,8 @@ nwsd<-t(apply(final,1,function(x) {
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
 
-# change tables above into data frames
-nt<-as.data.frame(nt,row.names = rownames(nt))
-nwd<-as.data.frame(nwd,row.names=rownames(nwd))
-nws<-as.data.frame(nws,row.names=rownames(nws))
-nwsd<-as.data.frame(nwsd,row.names = rownames(nwsd))
 
-# find those rows activities resulting in NaNs or the expected value within the chi square test is nothing
-nt[is.nan(nt$V1),]
-nwd[is.nan(nwd$V1),]
-nws[is.nan(nws$V1),]
-nwsd[is.nan(nwsd$V1),]
-
-
-# remove NAs for final evaluation
-nt<-na.omit(nt)
-nwd<-na.omit(nwd)
-nws<-na.omit(nws)
-nwsd<-na.omit(nwsd)
-
-names(nt)<- c('X2','P-Value')
-names(nwd)<- c('X2','P-Value')
-names(nws)<- c('X2','P-Value')
-names(nwsd)<- c('X2','P-Value')
-
-#  find those activities that are similar to neanderthals
-nt[nt$`P-Value`>.05,]
-nwd[nwd$`P-Value`>.05,]
-nws[nt$`P-Value`>.05,]
-nwsd[nwd$`P-Value`>.05,]
-
+# create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup
 chi2cleanup<-function(table){
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
   frame<-as.data.frame(table,row.names = rownames(table))
@@ -89,9 +61,21 @@ chi2cleanup<-function(table){
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
   c<- list(
-    rowna=frame[is.nan(frame$X2),],
-    final=na.omit(frame)
+    rowna=frame[is.nan(frame$X2),], # $rowna 
+    final=na.omit(frame)            # $final
   )
   return(c)
 }
 
+# name cleaned up chi square tables
+first<-chi2cleanup(nt) 
+second<-chi2cleanup(nwd)
+third<-chi2cleanup(nws)
+fourth<-chi2cleanup(nwsd)
+
+
+# find those that have are similar to neanderthal samples (rename these!!!!)
+first$final[first$final$`P-Value`>.05,] # for total neanderthal sample
+second$final[second$final$`P-Value`>.05,] # neanderthal without djd
+third$final[third$final$`P-Value`>.05,] # neanderthal without shan
+fourth$final[fourth$final$`P-Value`>.05,] # neanderthal without djd or shan
