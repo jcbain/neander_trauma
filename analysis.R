@@ -52,26 +52,30 @@ nwsd<-t(apply(final,1,function(x) {
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
 
-# change tables above into data frames
-nt<-as.data.frame(nt,row.names = rownames(nt))
-nwd<-as.data.frame(nwd,row.names=rownames(nwd))
-nws<-as.data.frame(nws,row.names=rownames(nws))
-nwsd<-as.data.frame(nwsd,row.names = rownames(nwsd))
 
-# find those rows activities resulting in NaNs or the expected value within the chi square test is nothing
-nt[is.nan(nt$V1),]
-nwd[is.nan(nwd$V1),]
-nws[is.nan(nws$V1),]
-nwsd[is.nan(nwsd$V1),]
+# create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup
+chi2cleanup<-function(table){
+  # read in one of the chi square tables (nt, nwd, nws or nwsd)
+  frame<-as.data.frame(table,row.names = rownames(table))
+  names(frame) = c('X2','P-Value')
+  
+  # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
+  c<- list(
+    rowna=frame[is.nan(frame$X2),], # $rowna 
+    final=na.omit(frame)            # $final
+  )
+  return(c)
+}
 
-# remove NAs for final evaluation
-nt<-na.omit(nt)
-nwd<-na.omit(nwd)
-nws<-na.omit(nws)
-nwsd<-na.omit(nwsd)
+# name cleaned up chi square tables
+first<-chi2cleanup(nt) 
+second<-chi2cleanup(nwd)
+third<-chi2cleanup(nws)
+fourth<-chi2cleanup(nwsd)
 
-#  find those activities that are similar to neanderthals
-nt[nt$V2>.05,]
-nwd[nwd$V2>.05,]
-nws[nt$V2>.05,]
-nwsd[nwd$V2>.05,]
+
+# find those that have are similar to neanderthal samples (rename these!!!!)
+first$final[first$final$`P-Value`>.05,] # for total neanderthal sample
+second$final[second$final$`P-Value`>.05,] # neanderthal without djd
+third$final[third$final$`P-Value`>.05,] # neanderthal without shan
+fourth$final[fourth$final$`P-Value`>.05,] # neanderthal without djd or shan
