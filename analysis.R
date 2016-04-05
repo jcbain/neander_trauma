@@ -58,11 +58,13 @@ chi2cleanup<-function(table){
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
   frame<-as.data.frame(table,row.names = rownames(table))
   names(frame) = c('X2','P-Value')
+  fin = na.omit(frame) 
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
   c<- list(
     rowna=frame[is.nan(frame$X2),], # $rowna 
-    final=na.omit(frame)            # $final
+    final=fin,           # $final
+    similar=fin[fin$`P-Value` > .05,] # $similar 
   )
   return(c)
 }
