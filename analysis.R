@@ -55,27 +55,31 @@ nwsd<-t(apply(final,1,function(x) {
 
 # create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup
 chi2cleanup<-function(table){
+  
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
   frame<-as.data.frame(table,row.names = rownames(table))
   names(frame) = c('X2','P-Value')
+  fin = na.omit(frame) 
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
   c<- list(
-    rowna=frame[is.nan(frame$X2),], # $rowna 
-    final=na.omit(frame)            # $final
+    rowna=frame[is.nan(frame$X2),],   # $rowna 
+    final=fin,                        # $final
+    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
   )
   return(c)
 }
 
 # name cleaned up chi square tables
-first<-chi2cleanup(nt) 
-second<-chi2cleanup(nwd)
-third<-chi2cleanup(nws)
-fourth<-chi2cleanup(nwsd)
+n_tot<-chi2cleanup(nt)  # neanderthal total
+n_djd<-chi2cleanup(nwd) # neanderthal w/o djd
+n_s<-chi2cleanup(nws)   # neanderthal w/o shan
+n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
 
 
-# find those that have are similar to neanderthal samples (rename these!!!!)
-first$final[first$final$`P-Value`>.05,] # for total neanderthal sample
-second$final[second$final$`P-Value`>.05,] # neanderthal without djd
-third$final[third$final$`P-Value`>.05,] # neanderthal without shan
-fourth$final[fourth$final$`P-Value`>.05,] # neanderthal without djd or shan
+# find similar activities per sample 
+n_tot$similar
+n_djd$similar
+n_s$similar
+n_sd$similar
+ 
