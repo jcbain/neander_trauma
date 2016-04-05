@@ -55,6 +55,7 @@ nwsd<-t(apply(final,1,function(x) {
 
 # create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup
 chi2cleanup<-function(table){
+  
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
   frame<-as.data.frame(table,row.names = rownames(table))
   names(frame) = c('X2','P-Value')
@@ -64,7 +65,7 @@ chi2cleanup<-function(table){
   c<- list(
     rowna=frame[is.nan(frame$X2),], # $rowna 
     final=fin,           # $final
-    similar=fin[fin$`P-Value` > .05,] # $similar 
+    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
   )
   return(c)
 }
