@@ -86,8 +86,10 @@ n_s$similar
 n_sd$similar
  
 # create a function to find the similar activities frome the original contigency table
-similarSelector<-function(frame,final_frame){
+similarSelector<-function(frame,final_frame,neander_sample){
   indices=rownames(frame$similar)
-  return(final_frame[indices,])
+  new_rows = final_frame[indices,]
+  joined = rbind(neander_sample,new_rows)
+  return(joined)
 }
 
