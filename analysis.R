@@ -1,6 +1,8 @@
 setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 
 library(plyr)
+library(ggplot2)
+library(plotly)
 
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
@@ -83,3 +85,9 @@ n_djd$similar
 n_s$similar
 n_sd$similar
  
+# create a function to find the similar activities frome the original contigency table
+similarSelector<-function(frame,final_frame){
+  indices=rownames(frame$similar)
+  return(final_frame[indices,])
+}
+
