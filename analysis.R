@@ -86,10 +86,14 @@ n_s$similar
 n_sd$similar
  
 # create a function to find the similar activities frome the original contigency table
-similarSelector<-function(frame,final_frame,neander_sample){
+similarSelector<-function(frame,final_frame,neander_sample){ 
+  # frame = n_tot,n_djd,n_s or n_sd; final_frame = final; neander_sample = one of the neanderthal samples
+  # find the indices of the similar frames and then pull them out of the final conitigency table
   indices=rownames(frame$similar)
   new_rows = final_frame[indices,]
   joined = rbind(neander_sample,new_rows)
   return(joined)
 }
 
+# an example of how similarSelector works
+r<-similarSelector(n_tot,final,neander_tot)
