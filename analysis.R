@@ -3,6 +3,7 @@ setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 library(plyr)
 library(ggplot2)
 library(plotly)
+library(reshape)
 
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
@@ -87,15 +88,21 @@ n_sd$similar
  
 # create a function to find the similar activities frome the original contigency table
 similarSelector<-function(frame,final_frame,neander_sample){ 
-  # frame = n_tot,n_djd,n_s or n_sd; final_frame = final; neander_sample = one of the neanderthal samples
-  # find the indices of the similar frames and then pull them out of the final conitigency table
-  indices=rownames(frame$similar)
-  new_rows = final_frame[indices,]
-  sample =append("neander",rownames(new_rows))
-  joined = rbind(neander_sample,new_rows)
-  joined2 = cbind(sample,joined)
-  rownames(joined2) = NULL
-  return(joined2)
+  
+  require(reshape)
+  
+  indices=rownames(frame$similar)               # find rows to set as indices
+  new_rows = final_frame[indices,]              # map those to original contigency table
+  
+  sample =append("neander",rownames(new_rows))  # add a new vector to use a "sample" column
+  
+  joined_rows = rbind(neander_sample,new_rows)  # join rows from neanderthal sample to new dataframe
+  joined_cols = cbind(sample,joined_rows)       # add the "sample" column
+  rownames(joined_cols) = NULL                  # remove the row indices 
+  
+  melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
+  
+  return(melted)                
 }
 
 # an example of how similarSelector works
@@ -104,5 +111,4 @@ d<-similarSelector(n_djd,final,nea_wo_djd)
 s<-similarSelector(n_s,final,nea_wo_shan1)
 sd<-similarSelector(n_sd,final,nea_wo_shan1_djd)
 
-x<-rownames(n)
-append('neander',x)
+
