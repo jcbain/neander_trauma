@@ -91,9 +91,18 @@ similarSelector<-function(frame,final_frame,neander_sample){
   # find the indices of the similar frames and then pull them out of the final conitigency table
   indices=rownames(frame$similar)
   new_rows = final_frame[indices,]
+  sample =append("neander",rownames(new_rows))
   joined = rbind(neander_sample,new_rows)
-  return(joined)
+  joined2 = cbind(sample,joined)
+  rownames(joined2) = NULL
+  return(joined2)
 }
 
 # an example of how similarSelector works
-r<-similarSelector(n_tot,final,neander_tot)
+n<-similarSelector(n_tot,final,neander_tot)
+d<-similarSelector(n_djd,final,nea_wo_djd)
+s<-similarSelector(n_s,final,nea_wo_shan1)
+sd<-similarSelector(n_sd,final,nea_wo_shan1_djd)
+
+x<-rownames(n)
+append('neander',x)
