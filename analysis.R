@@ -105,10 +105,38 @@ similarSelector<-function(frame,final_frame,neander_sample){
   return(melted)                
 }
 
+simiSelector<-function(frame,final_frame,neander_sample){ 
+  
+  require(reshape)
+  require(plyr)
+  indices=rownames(frame$similar)               # find rows to set as indices
+  new_rows = final_frame[indices,]              # map those to original contigency table
+  
+  sample =append("neander",rownames(new_rows))  # add a new vector to use a "sample" column
+  
+  joined_rows = rbind(neander_sample,new_rows) # join rows from neanderthal sample to new dataframe
+  props = prop.table(as.table(as.matrix(joined_rows)),1)
+  props<-as.data.frame(props)
+  props$Var1[props$Var1=='1'] = 'neander'
+  #joined_cols = cbind(sample,props)       # add the "sample" column
+  #rownames(joined_cols) = NULL                  # remove the row indices 
+  
+  #melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
+  
+  return(props)                
+}
+
 # an example of how similarSelector works
 n<-similarSelector(n_tot,final,neander_tot)
 d<-similarSelector(n_djd,final,nea_wo_djd)
 s<-similarSelector(n_s,final,nea_wo_shan1)
 sd<-similarSelector(n_sd,final,nea_wo_shan1_djd)
 
-
+ggplot(data=n, 
+       aes(x=factor(variable), y=value, 
+           group=sample,
+           color=sample)) + 
+  geom_line() + 
+  geom_point() +
+  scale_x_discrete("Year") +
+  scale_y_continuous("Proportion Tasty")
