@@ -87,7 +87,7 @@ n_s$similar
 n_sd$similar
  
 # create a function to find the similar activities frome the original contigency table
-similarSelector<-function(frame,final_frame,neander_sample){ 
+similarSelectorCounts<-function(frame,final_frame,neander_sample){ 
   
   require(reshape)
   
@@ -105,7 +105,8 @@ similarSelector<-function(frame,final_frame,neander_sample){
   return(melted)                
 }
 
-simiSelector<-function(frame,final_frame,neander_sample){ 
+# like similarSelectorCounts() but returns proportions instead
+similarSelector<-function(frame,final_frame,neander_sample){ 
   
   require(reshape)
   require(plyr)
@@ -116,14 +117,14 @@ simiSelector<-function(frame,final_frame,neander_sample){
   
   joined_rows = rbind(neander_sample,new_rows) # join rows from neanderthal sample to new dataframe
   props = prop.table(as.table(as.matrix(joined_rows)),1)
-  props<-as.data.frame(props)
-  props$Var1[props$Var1=='1'] = 'neander'
-  #joined_cols = cbind(sample,props)       # add the "sample" column
-  #rownames(joined_cols) = NULL                  # remove the row indices 
+
+  props<-as.data.frame.matrix(props)
+  joined_cols = cbind(sample,props)       # add the "sample" column
+  rownames(joined_cols) = NULL                  # remove the row indices 
   
-  #melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
+  melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
   
-  return(props)                
+  return(melted)                
 }
 
 # an example of how similarSelector works
