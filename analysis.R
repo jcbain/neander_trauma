@@ -133,11 +133,22 @@ d<-similarSelector(n_djd,final,nea_wo_djd)
 s<-similarSelector(n_s,final,nea_wo_shan1)
 sd<-similarSelector(n_sd,final,nea_wo_shan1_djd)
 
+# extract just the neanderthal row for emphasis in plots
+n2<-n[n$sample=='neander',]
+d2<-d[d$sample=='neander',]
+s2<-s[s$sample=='neander',]
+sd<-sd[sd$sample=='neander',]
+
+# plotting 
 ggplot(data=n, 
        aes(x=factor(variable), y=value, 
            group=sample,
            color=sample)) + 
   geom_line() + 
   geom_point() +
-  scale_x_discrete("Year") +
-  scale_y_continuous("Proportion Tasty")
+  geom_point(data=n2,aes(x=factor(variable), y=value, 
+                         group=sample, size = 4))+
+  geom_line(data=n2,aes(x=factor(variable), y=value, 
+                        group=sample, size = 2)) 
+  scale_x_discrete("Proportion") +
+  scale_y_continuous("Body Part")
