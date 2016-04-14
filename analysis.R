@@ -128,19 +128,19 @@ similarSelector<-function(frame,final_frame,neander_sample){
 }
 
 # an example of how similarSelector works
-n<-similarSelector(n_tot,final,neander_tot)
-d<-similarSelector(n_djd,final,nea_wo_djd)
-s<-similarSelector(n_s,final,nea_wo_shan1)
-sd<-similarSelector(n_sd,final,nea_wo_shan1_djd)
+simToNeanderTotal<-similarSelector(n_tot,final,neander_tot)
+simToNeanderWOdjd<-similarSelector(n_djd,final,nea_wo_djd)
+simToNeanderWOShan<-similarSelector(n_s,final,nea_wo_shan1)
+simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,nea_wo_shan1_djd)
 
 # extract just the neanderthal row for emphasis in plots
-n2<-n[n$sample=='neander',]
-d2<-d[d$sample=='neander',]
-s2<-s[s$sample=='neander',]
-sd<-sd[sd$sample=='neander',]
+n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
+d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
+s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
+sd<-ssimToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 
 # plotting 
-ggplot(data=n, 
+ggplot(data=neanderTotal, 
        aes(x=factor(variable), y=value, 
            group=sample,
            color=sample)) + 
