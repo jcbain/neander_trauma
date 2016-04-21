@@ -55,8 +55,9 @@ nwsd<-t(apply(final,1,function(x) {
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
 
-
-# create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup
+####################################################################################################################
+## create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup ##
+####################################################################################################################
 chi2cleanup<-function(table){
   
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
@@ -85,6 +86,10 @@ n_tot$similar
 n_djd$similar
 n_s$similar
 n_sd$similar
+
+#############################################################
+## finding activities that are not statistically different ##
+#############################################################
  
 # create a function to find the similar activities frome the original contigency table
 similarSelectorCounts<-function(frame,final_frame,neander_sample){ 
@@ -139,8 +144,10 @@ d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
 sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 
-# plotting 
-ggplot(data=neanderTotal, 
+######################################################################
+## plotting ##########################################################
+######################################################################
+ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly above
        aes(x=factor(variable), y=value, 
            group=sample,
            color=sample)) + 
@@ -149,6 +156,7 @@ ggplot(data=neanderTotal,
   geom_point(data=n2,aes(x=factor(variable), y=value, 
                          group=sample, size = 4))+
   geom_line(data=n2,aes(x=factor(variable), y=value, 
-                        group=sample, size = 2)) 
+                        group=sample, size = 2))+ 
   scale_x_discrete("Proportion") +
-  scale_y_continuous("Body Part")
+  scale_y_continuous("Body Part")+
+  guides(size=FALSE)
