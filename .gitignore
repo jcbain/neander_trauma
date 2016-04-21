@@ -1,1 +1,10 @@
+# Folders #
+###########
 /Data/NEISS/
+
+
+# History Files #
+#################
+.RData
+.Rhistory
+.DS_Store
