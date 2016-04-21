@@ -137,7 +137,7 @@ simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,nea_wo_shan1_djd)
 n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
 d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
-sd<-ssimToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
+sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 
 # plotting 
 ggplot(data=neanderTotal, 
