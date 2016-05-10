@@ -57,6 +57,47 @@ nwsd<-t(apply(final,1,function(x) {
   ch <- chisq.test(new)
   c(unname(ch$statistic), ch$p.value)}))
 
+
+##############################
+######### CRAMER'S V #########
+##############################
+
+
+tots<-t(apply(final,1,function(x) {
+  new<- cbind(neander_tot,x)
+  ch <- chisq.test(new)
+  chi<-c(unname(ch$statistic), ch$p.value)
+  cram<-CramerV(new,conf.level=0.90)
+  cbind(chi,cram)
+}))
+
+# need to debug
+nodjd<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_djd,x)
+  ch <- chisq.test(new)
+  chi<-c(unname(ch$statistic), ch$p.value)
+  cram<-CramerV(new,conf.level=0.90)
+  cbind(chi,cram)
+}))
+
+noshan<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1,x)
+  ch <- chisq.test(new)
+  chi<-c(unname(ch$statistic), ch$p.value)
+  cram<-CramerV(new,conf.level=0.90)
+  cbind(chi,cram)
+}))
+
+# need to debug
+noshandjd<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1_djd,x)
+  ch <- chisq.test(new)
+  chi<-c(unname(ch$statistic), ch$p.value)
+  cram<-CramerV(new,conf.level=0.90)
+  cbind(chi,cram)
+}))
+
+
 ####################################################################################################################
 ## create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup ##
 ####################################################################################################################
@@ -76,12 +117,33 @@ chi2cleanup<-function(table){
   return(c)
 }
 
+# like chi2cleanup but with cramer's v and confidence intervals
+chi2cleanup2<-function(table){
+  
+  # read in one of the chi square tables (nt, nwd, nws or nwsd)
+  frame<-as.data.frame(table,row.names = rownames(table))
+  frame<-frame[-c(3)] # drop the extra p value column
+  names(frame) = c('X2','P-Value','Cramers V', 'l.conf','u.conf')
+  fin = na.omit(frame) 
+  
+  # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
+  c<- list(
+    rowna=frame[is.nan(frame$X2),],   # $rowna 
+    final=fin,                        # $final
+    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
+  )
+  return(c)
+}
+
+
 # name cleaned up chi square tables
 n_tot<-chi2cleanup(nt)  # neanderthal total
 n_djd<-chi2cleanup(nwd) # neanderthal w/o djd
 n_s<-chi2cleanup(nws)   # neanderthal w/o shan
 n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
 
+# cleaned up with cramer's v
+e<-chi2cleanup2(noshan)
 
 # find similar activities per sample 
 n_tot$similar
@@ -164,16 +226,4 @@ ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly
   guides(size=FALSE)
 
 
-##############################
-######### CRAMER'S V #########
-##############################
 
-j<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1,x)
-  ch <- assocstats(new)
-  c(unname(ch$cramer),ch$chisq_tests)}))
-
-q<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1,x)
-  ch <- CramerV(new,conf.level=0.95)
-  return(ch)}))
