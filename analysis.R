@@ -4,6 +4,7 @@ library(plyr)
 library(ggplot2)
 library(plotly)
 library(reshape)
+library(vcd)
 
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
@@ -160,3 +161,13 @@ ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly
   scale_x_discrete("Proportion") +
   scale_y_continuous("Body Part")+
   guides(size=FALSE)
+
+
+##############################
+######### CRAMER'S V #########
+##############################
+
+j<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1,x)
+  ch <- assocstats(new)
+  c(unname(ch$cramer),ch$chisq_tests)}))
