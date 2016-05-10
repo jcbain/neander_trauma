@@ -5,6 +5,7 @@ library(ggplot2)
 library(plotly)
 library(reshape)
 library(vcd)
+library(DescTools)
 
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
@@ -171,3 +172,8 @@ j<-t(apply(final,1,function(x) {
   new<- cbind(nea_wo_shan1,x)
   ch <- assocstats(new)
   c(unname(ch$cramer),ch$chisq_tests)}))
+
+q<-t(apply(final,1,function(x) {
+  new<- cbind(nea_wo_shan1,x)
+  ch <- CramerV(new,conf.level=0.95)
+  return(ch)}))
