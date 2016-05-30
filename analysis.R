@@ -135,7 +135,7 @@ noshandjd<-t(apply(final,1,function(x) {
 
 
 # like chi2cleanup but with cramer's v 
-chi2cleanup3<-function(table){
+chi2cleanup<-function(table){
   
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
   frame<-as.data.frame(table,row.names = rownames(table))
