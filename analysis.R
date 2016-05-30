@@ -33,15 +33,15 @@ final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
 
 # recreate data from Berger Trinkaus papers
-neander_tot<-c(8,4,7,1,1,3,3)
-nea_wo_djd<-c(7,4,7,1,0,3,1)
-nea_wo_shan1<-c(6,4,5,1,1,3,1)
-nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
+sample1<-c(8,4,7,1,1,3,3) # total sample
+sample2<-c(7,4,7,1,0,3,1) # without djd
+sample3<-c(6,4,5,1,1,3,1) # without shandidar 1
+sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 
 ## apply chi square for neander total and every sport
 
 # nt<-t(apply(final,1,function(x) {
-#   new<- cbind(neander_tot,x)
+#   new<- cbind(sample1,x)
 #   ch <- chisq.test(new)
 #   c(unname(ch$statistic), ch$p.value)}))
 
@@ -53,7 +53,7 @@ nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
 ## this was buggy and perhaps unnecessary
 
 #tots<-t(apply(final,1,function(x) {
-#  new<- cbind(neander_tot,x)
+#  new<- cbind(sample1,x)
 #  ch <- chisq.test(new)
 #  chi<-c(unname(ch$statistic), ch$p.value)
 #  cram<-CramerV(new,conf.level=0.90)
@@ -62,7 +62,7 @@ nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
 
 
 tots<-t(apply(final,1,function(x) {
-  new<- cbind(neander_tot,x)
+  new<- cbind(sample1,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
   cram<-CramerV(new)
@@ -71,7 +71,7 @@ tots<-t(apply(final,1,function(x) {
 
 
 nodjd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_djd,x)
+  new<- cbind(sample2,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
   cram<-CramerV(new)
@@ -79,7 +79,7 @@ nodjd<-t(apply(final,1,function(x) {
 }))
 
 noshan<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1,x)
+  new<- cbind(sample3,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
   cram<-CramerV(new)
@@ -88,7 +88,7 @@ noshan<-t(apply(final,1,function(x) {
 
 
 noshandjd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1_djd,x)
+  new<- cbind(sample4,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
   cram<-CramerV(new)
@@ -99,39 +99,39 @@ noshandjd<-t(apply(final,1,function(x) {
 ####################################################################################################################
 ## create a function to cleanup the chi square tables and be able to pull out different objects from this cleanup ##
 ####################################################################################################################
-chi2cleanup<-function(table){
-  
-  # read in one of the chi square tables (nt, nwd, nws or nwsd)
-  frame<-as.data.frame(table,row.names = rownames(table))
-  names(frame) = c('X2','P-Value')
-  fin = na.omit(frame) 
-  
-  # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
-  c<- list(
-    rowna=frame[is.nan(frame$X2),],   # $rowna 
-    final=fin,                        # $final
-    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
-  )
-  return(c)
-}
+# chi2cleanup<-function(table){
+#   
+#   # read in one of the chi square tables (nt, nwd, nws or nwsd)
+#   frame<-as.data.frame(table,row.names = rownames(table))
+#   names(frame) = c('X2','P-Value')
+#   fin = na.omit(frame) 
+#   
+#   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
+#   c<- list(
+#     rowna=frame[is.nan(frame$X2),],   # $rowna 
+#     final=fin,                        # $final
+#     similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
+#   )
+#   return(c)
+# }
 
 # like chi2cleanup but with cramer's v and confidence intervals
-chi2cleanup2<-function(table){
-  
-  # read in one of the chi square tables (nt, nwd, nws or nwsd)
-  frame<-as.data.frame(table,row.names = rownames(table))
-  frame<-frame[-c(3)] # drop the extra p value column
-  names(frame) = c('X2','P-Value','Cramers V', 'l.conf','u.conf')
-  fin = na.omit(frame) 
-  
-  # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
-  c<- list(
-    rowna=frame[is.nan(frame$X2),],   # $rowna 
-    final=fin,                        # $final
-    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
-  )
-  return(c)
-}
+# chi2cleanup2<-function(table){
+#   
+#   # read in one of the chi square tables (nt, nwd, nws or nwsd)
+#   frame<-as.data.frame(table,row.names = rownames(table))
+#   frame<-frame[-c(3)] # drop the extra p value column
+#   names(frame) = c('X2','P-Value','Cramers V', 'l.conf','u.conf')
+#   fin = na.omit(frame) 
+#   
+#   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
+#   c<- list(
+#     rowna=frame[is.nan(frame$X2),],   # $rowna 
+#     final=fin,                        # $final
+#     similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
+#   )
+#   return(c)
+# }
 
 
 # like chi2cleanup but with cramer's v 
@@ -214,10 +214,10 @@ similarSelector<-function(frame,final_frame,neander_sample){
 }
 
 # an example of how similarSelector works
-simToNeanderTotal<-similarSelector(n_tot,final,neander_tot)
-simToNeanderWOdjd<-similarSelector(n_djd,final,nea_wo_djd)
-simToNeanderWOShan<-similarSelector(n_s,final,nea_wo_shan1)
-simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,nea_wo_shan1_djd)
+simToNeanderTotal<-similarSelector(n_tot,final,sample1)
+simToNeanderWOdjd<-similarSelector(n_djd,final,sample2)
+simToNeanderWOShan<-similarSelector(n_s,final,sample3)
+simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,sample4)
 
 # extract just the neanderthal row for emphasis in plots
 n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
