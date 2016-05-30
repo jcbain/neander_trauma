@@ -114,6 +114,12 @@ n_djd$similar
 n_s$similar
 n_sd$similar
 
+# now what does rodeo riders look like in comparison to the neanderthal samples
+n_tot$final['rodeo',]
+n_djd$final['rodeo',]
+n_s$final['rodeo',]
+n_sd$final['rodeo',]
+
 #############################################################
 ## finding activities that are not statistically different ##
 #############################################################

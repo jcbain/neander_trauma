@@ -134,6 +134,15 @@ n_s$similar
 n_sd$similar
 ```
 
+Lets look at what Rodeo Riders look like in comparison to the Neanderthal samples
+
+```{r}
+n_tot$final['rodeo',]
+n_djd$final['rodeo',]
+n_s$final['rodeo',]
+n_sd$final['rodeo',]
+```
+
 
 ```{r}
 similarSelector<-function(frame,final_frame,neander_sample){ 
