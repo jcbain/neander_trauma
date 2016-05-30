@@ -181,24 +181,37 @@ n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
 d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
 sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
+
+# extract just the rodeo riders for emphasis in plots
+n3<-simToNeanderTotal[simToNeanderTotal$sample=='rodeo',]
+d3<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='rodeo',]
+s3<-simToNeanderWOShan[simToNeanderWOShan$sample=='rodeo',]
+sd3<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='rodeo',]
 ```
 
 Plot those that are similar
 
 ```{r}
-ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly above
-       aes(x=factor(variable), y=value, 
-           group=sample,
-           color=sample)) + 
-  geom_line() + 
-  geom_point() +
-  geom_point(data=n2,aes(x=factor(variable), y=value, 
-                         group=sample, size = 4))+
-  geom_line(data=n2,aes(x=factor(variable), y=value, 
-                        group=sample, size = 2))+ 
-  scale_x_discrete("Proportion") +
-  scale_y_continuous("Body Part")+
-  guides(size=FALSE)
+plotMaker<-function(total_frame,neander_frame,rodeo_frame){
+  ggplot(data=total_frame, # this needs to be one of the dataframes directly above
+         aes(x=factor(variable), y=value, 
+             group=sample,
+             color=sample)) + 
+    geom_line() + 
+    geom_point() +
+    geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
+                                      group=sample, size = 4))+
+    geom_line(data=neander_frame,aes(x=factor(variable), y=value, 
+                          group=sample, size = 2))+ 
+    geom_point(data=rodeo_frame,aes(x=factor(variable), y=value, 
+                                      group=sample, size = 4))+
+    geom_line(data=rodeo_frame,aes(x=factor(variable), y=value, 
+                                     group=sample, size = 2))+ 
+    scale_x_discrete("Proportion") +
+    scale_y_continuous("Body Part")+
+    guides(size=FALSE)
+}
+
 ```
 
 Create a function to do what was done above but in a simpler fashion
@@ -226,23 +239,23 @@ plotMaker<-function(total_frame,neander_frame){
 The total sample 
 
 ```{r}
-plotMaker(simToNeanderTotal,n2)
+plotMaker(simToNeanderTotal,n2,n3)
 ```
 
 The sample with out djd
 
 ```{r}
-plotMaker(simToNeanderWOdjd,d2)
+plotMaker(simToNeanderWOdjd,d2,d3)
 ```
 
 The sample without Shandidar 
 
 ```{r}
-plotMaker(simToNeanderWOShan,s2)
+plotMaker(simToNeanderWOShan,s2,s3)
 ```
 
 The sample without djd or Shan
 
 ```{r}
-plotMaker(simToNeanderWOdjdOrShan,sd)
+plotMaker(simToNeanderWOdjdOrShan,sd,sd3)
 ```

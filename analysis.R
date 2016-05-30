@@ -160,12 +160,17 @@ d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
 sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 
+# extract just the rodeo riders for emphasis in plots
+n3<-simToNeanderTotal[simToNeanderTotal$sample=='rodeo',]
+d3<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='rodeo',]
+s3<-simToNeanderWOShan[simToNeanderWOShan$sample=='rodeo',]
+sd3<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='rodeo',]
 ######################################################################
 ## plotting ##########################################################
 ######################################################################
 
 # create a function to plot all of this stuff
-plotMaker<-function(total_frame,neander_frame){
+plotMaker<-function(total_frame,neander_frame,rodeo_frame){
   ggplot(data=total_frame, # this needs to be one of the dataframes directly above
          aes(x=factor(variable), y=value, 
              group=sample,
@@ -176,15 +181,19 @@ plotMaker<-function(total_frame,neander_frame){
                                       group=sample, size = 4))+
     geom_line(data=neander_frame,aes(x=factor(variable), y=value, 
                           group=sample, size = 2))+ 
+    geom_point(data=rodeo_frame,aes(x=factor(variable), y=value, 
+                                      group=sample, size = 4))+
+    geom_line(data=rodeo_frame,aes(x=factor(variable), y=value, 
+                                     group=sample, size = 2))+ 
     scale_x_discrete("Proportion") +
     scale_y_continuous("Body Part")+
     guides(size=FALSE)
 }
 
-plotMaker(simToNeanderTotal,n2)
-plotMaker(simToNeanderWOdjd,d2)
-plotMaker(simToNeanderWOShan,s2)
-plotMaker(simToNeanderWOdjdOrShan,sd)
+plotMaker(simToNeanderTotal,n2,n3)
+plotMaker(simToNeanderWOdjd,d2,d3)
+plotMaker(simToNeanderWOShan,s2,s3)
+plotMaker(simToNeanderWOdjdOrShan,sd,sd3)
 
 
 ########################################
