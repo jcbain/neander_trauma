@@ -135,6 +135,7 @@ n_s$similar
 n_sd$similar
 ```
 
+
 ```{r}
 similarSelector<-function(frame,final_frame,neander_sample){ 
   
@@ -158,6 +159,8 @@ similarSelector<-function(frame,final_frame,neander_sample){
 }
 ```
 
+
+
 ```{r}
 # an example of how similarSelector works
 simToNeanderTotal<-similarSelector(n_tot,final,sample1)
@@ -166,6 +169,8 @@ simToNeanderWOShan<-similarSelector(n_s,final,sample3)
 simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,sample4)
 ```
 
+Find jus the neanderthals in the above dataframes
+
 ```{r}
 # extract just the neanderthal row for emphasis in plots
 n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
@@ -173,6 +178,8 @@ d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
 sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 ```
+
+Plot those that are similar
 
 ```{r}
 ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly above
@@ -189,6 +196,8 @@ ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly
   scale_y_continuous("Body Part")+
   guides(size=FALSE)
 ```
+
+Create a function to do what was done above but in a simpler fashion
 
 ```{r}
 plotMaker<-function(total_frame,neander_frame){
