@@ -214,25 +214,6 @@ plotMaker<-function(total_frame,neander_frame,rodeo_frame){
 
 ```
 
-Create a function to do what was done above but in a simpler fashion
-
-```{r}
-plotMaker<-function(total_frame,neander_frame){
-  ggplot(data=total_frame, # this needs to be one of the dataframes directly above
-       aes(x=factor(variable), y=value, 
-           group=sample,
-           color=sample)) + 
-    geom_line() + 
-    geom_point() +
-    geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
-                         group=sample, size = 4))+
-    geom_line(data=neander_frame,aes(x=factor(variable), y=value, 
-                        group=sample, size = 2))+ 
-    scale_x_discrete("Proportion") +
-    scale_y_continuous("Body Part")+
-    guides(size=FALSE)
-}
-```
 
 ## Plots
 
