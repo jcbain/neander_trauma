@@ -143,15 +143,20 @@ similarSelector<-function(frame,final_frame,neander_sample){
   indices=rownames(frame$similar)               # find rows to set as indices
   new_rows = final_frame[indices,]              # map those to original contigency table
   
-  sample =append("neander",rownames(new_rows))  # add a new vector to use a "sample" column
+  sample =append(c("neander","rodeo"),rownames(new_rows))  # add a new vector to use a "sample" column
   
-  joined_rows = rbind(neander_sample,new_rows) # join rows from neanderthal sample to new dataframe
+  rodeo = final_frame['rodeo',] # add rodeo riders
+  
+  joined_rows = rbind(neander_sample,rodeo,new_rows) # join rows from neanderthal sample to new dataframe
+  
   props = prop.table(as.table(as.matrix(joined_rows)),1)
-
-  props<-as.data.frame.matrix(props)
-  joined_cols = cbind(sample,props)       # add the "sample" column
-  rownames(joined_cols) = NULL                  # remove the row indices 
   
+  props<-as.data.frame.matrix(props)
+  
+  joined_cols = cbind(sample,props)       # add the "sample" column
+  
+  rownames(joined_cols) = NULL                  # remove the row indices 
+      
   melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
   
   return(melted)                

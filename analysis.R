@@ -108,9 +108,6 @@ n_djd<-chi2cleanup(nwd) # neanderthal w/o djd
 n_s<-chi2cleanup(nws)   # neanderthal w/o shan
 n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
 
-# cleaned up with cramer's v
-e<-chi2cleanup2(noshan)
-
 # find similar activities per sample 
 n_tot$similar
 n_djd$similar
@@ -131,19 +128,25 @@ similarSelector<-function(frame,final_frame,neander_sample){
   indices=rownames(frame$similar)               # find rows to set as indices
   new_rows = final_frame[indices,]              # map those to original contigency table
   
-  sample =append("neander",rownames(new_rows))  # add a new vector to use a "sample" column
+  sample =append(c("neander","rodeo"),rownames(new_rows))  # add a new vector to use a "sample" column
   
-  joined_rows = rbind(neander_sample,new_rows) # join rows from neanderthal sample to new dataframe
+  rodeo = final_frame['rodeo',] # add rodeo riders
+  
+  joined_rows = rbind(neander_sample,rodeo,new_rows) # join rows from neanderthal sample to new dataframe
+  
   props = prop.table(as.table(as.matrix(joined_rows)),1)
-
-  props<-as.data.frame.matrix(props)
-  joined_cols = cbind(sample,props)       # add the "sample" column
-  rownames(joined_cols) = NULL                  # remove the row indices 
   
+  props<-as.data.frame.matrix(props)
+  
+  joined_cols = cbind(sample,props)       # add the "sample" column
+  
+  rownames(joined_cols) = NULL                  # remove the row indices 
+      
   melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
   
   return(melted)                
 }
+
 
 # an example of how similarSelector works
 simToNeanderTotal<-similarSelector(n_tot,final,sample1)
