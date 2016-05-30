@@ -22,7 +22,7 @@ tm<-as.data.frame.matrix(orig_table) # tm stands for table matrix
 head_neck <- tm$face + tm$neck + tm$head
 shoulder_arm <- tm$`upper arm` + tm$`lower arm` + tm$shoulder + tm$elbow
 hand <- tm$hand + tm$finger + tm$wrist
-pelvis <- tm$`pubic region` + tm$hip # look up Berger femoral neck categorization and within the data
+pelvis <- tm$`pubic region` + tm$hip 
 leg <- tm$knee + tm$`lower leg` + tm$`upper leg`
 foot <- tm$foot + tm$toe + tm$ankle
 trunk <- tm$`upper trunk` + tm$back
@@ -61,7 +61,8 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 #}))
 
 
-tots<-t(apply(final,1,function(x) {
+# total sample
+nt<-t(apply(final,1,function(x) {
   new<- cbind(sample1,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
@@ -69,8 +70,8 @@ tots<-t(apply(final,1,function(x) {
   cbind(chi,cram)
 }))
 
-
-nodjd<-t(apply(final,1,function(x) {
+# sample with out djd
+nwd<-t(apply(final,1,function(x) {
   new<- cbind(sample2,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
@@ -78,7 +79,8 @@ nodjd<-t(apply(final,1,function(x) {
   cbind(chi,cram)
 }))
 
-noshan<-t(apply(final,1,function(x) {
+# sample without shandidar
+nws<-t(apply(final,1,function(x) {
   new<- cbind(sample3,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
@@ -86,8 +88,8 @@ noshan<-t(apply(final,1,function(x) {
   cbind(chi,cram)
 }))
 
-
-noshandjd<-t(apply(final,1,function(x) {
+# sample without shandidar or djd
+nwsd<-t(apply(final,1,function(x) {
   new<- cbind(sample4,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
