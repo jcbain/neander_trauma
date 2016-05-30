@@ -5,8 +5,7 @@ date: "May, 2016"
 output: html_document
 ---
 
-Let's read in some packages first...oh...and set the working directory
-```{r, echo=FALSE,warning=FALSE}
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
 #setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 
 library(plyr)       

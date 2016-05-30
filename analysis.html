@@ -115,31 +115,6 @@ $(document).ready(function () {
 </div>
 
 
-<p>Let’s read in some packages first…oh…and set the working directory</p>
-<pre class="r"><code>#setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
-
-library(plyr)       
-library(ggplot2)    </code></pre>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.2.4</code></pre>
-<pre class="r"><code>library(plotly)     </code></pre>
-<pre><code>## 
-## Attaching package: 'plotly'</code></pre>
-<pre><code>## The following object is masked from 'package:ggplot2':
-## 
-##     last_plot</code></pre>
-<pre><code>## The following object is masked from 'package:graphics':
-## 
-##     layout</code></pre>
-<pre class="r"><code>library(reshape)    </code></pre>
-<pre><code>## 
-## Attaching package: 'reshape'</code></pre>
-<pre><code>## The following objects are masked from 'package:plyr':
-## 
-##     rename, round_any</code></pre>
-<pre class="r"><code>library(vcd)        </code></pre>
-<pre><code>## Loading required package: grid</code></pre>
-<pre class="r"><code>library(DescTools) </code></pre>
-<pre><code>## Warning: package 'DescTools' was built under R version 3.2.4</code></pre>
 <p>Now it is time to read in the data and get into a workable format for our problem</p>
 <pre class="r"><code># read in the data
 df &lt;- read.csv('Data/NEISS/sport_category_final.csv')
