@@ -38,44 +38,40 @@ nea_wo_djd<-c(7,4,7,1,0,3,1)
 nea_wo_shan1<-c(6,4,5,1,1,3,1)
 nea_wo_shan1_djd<-c(5,4,5,1,0,3,0)
 
-# apply chi square for neander total and every sport
-nt<-t(apply(final,1,function(x) {
-  new<- cbind(neander_tot,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
+## apply chi square for neander total and every sport
 
-nwd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_djd,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-nws<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
-nwsd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_shan1_djd,x)
-  ch <- chisq.test(new)
-  c(unname(ch$statistic), ch$p.value)}))
-
+# nt<-t(apply(final,1,function(x) {
+#   new<- cbind(neander_tot,x)
+#   ch <- chisq.test(new)
+#   c(unname(ch$statistic), ch$p.value)}))
 
 ##############################
 ######### CRAMER'S V #########
 ##############################
+
+## this is an example with confidence intervals however,
+## this was buggy and perhaps unnecessary
+
+#tots<-t(apply(final,1,function(x) {
+#  new<- cbind(neander_tot,x)
+#  ch <- chisq.test(new)
+#  chi<-c(unname(ch$statistic), ch$p.value)
+#  cram<-CramerV(new,conf.level=0.90)
+#  cbind(chi,cram)
+#}))
 
 
 tots<-t(apply(final,1,function(x) {
   new<- cbind(neander_tot,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new,conf.level=0.90)
+  cram<-CramerV(new)
   cbind(chi,cram)
 }))
 
-# need to debug
+
 nodjd<-t(apply(final,1,function(x) {
-  new<- cbind(c(7,4,7,1,0,3,1),x)
+  new<- cbind(nea_wo_djd,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
   cram<-CramerV(new)
@@ -86,11 +82,11 @@ noshan<-t(apply(final,1,function(x) {
   new<- cbind(nea_wo_shan1,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new,conf.level=0.90)
+  cram<-CramerV(new)
   cbind(chi,cram)
 }))
 
-# need to debug
+
 noshandjd<-t(apply(final,1,function(x) {
   new<- cbind(nea_wo_shan1_djd,x)
   ch <- chisq.test(new)
