@@ -244,5 +244,22 @@ ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly
   scale_y_continuous("Body Part")+
   guides(size=FALSE)
 
+# create a function to plot all of this stuff
+plotMaker<-function(total_frame,neander_frame){
+  ggplot(data=total_frame, # this needs to be one of the dataframes directly above
+         aes(x=factor(variable), y=value, 
+             group=sample,
+             color=sample)) + 
+    geom_line() + 
+    geom_point() +
+    geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
+                                      group=sample, size = 4))+
+    geom_line(data=n2,aes(x=factor(variable), y=value, 
+                          group=sample, size = 2))+ 
+    scale_x_discrete("Proportion") +
+    scale_y_continuous("Body Part")+
+    guides(size=FALSE)
+}
+
 
 
