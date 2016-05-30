@@ -1,11 +1,13 @@
 setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 
-library(plyr)
-library(ggplot2)
-library(plotly)
-library(reshape)
-library(vcd)
-library(DescTools)
+#######################
+library(plyr)       # #
+library(ggplot2)    # #
+library(plotly)     # #
+library(reshape)    # #
+library(vcd)        # #
+library(DescTools)  # #
+#######################
 
 # read in the data
 df <- read.csv('Data/NEISS/sport_category_final.csv')
@@ -73,10 +75,10 @@ tots<-t(apply(final,1,function(x) {
 
 # need to debug
 nodjd<-t(apply(final,1,function(x) {
-  new<- cbind(nea_wo_djd,x)
+  new<- cbind(c(7,4,7,1,0,3,1),x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new,conf.level=0.90)
+  cram<-CramerV(new)
   cbind(chi,cram)
 }))
 
@@ -93,7 +95,7 @@ noshandjd<-t(apply(final,1,function(x) {
   new<- cbind(nea_wo_shan1_djd,x)
   ch <- chisq.test(new)
   chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new,conf.level=0.90)
+  cram<-CramerV(new)
   cbind(chi,cram)
 }))
 
@@ -124,6 +126,25 @@ chi2cleanup2<-function(table){
   frame<-as.data.frame(table,row.names = rownames(table))
   frame<-frame[-c(3)] # drop the extra p value column
   names(frame) = c('X2','P-Value','Cramers V', 'l.conf','u.conf')
+  fin = na.omit(frame) 
+  
+  # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
+  c<- list(
+    rowna=frame[is.nan(frame$X2),],   # $rowna 
+    final=fin,                        # $final
+    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
+  )
+  return(c)
+}
+
+
+# like chi2cleanup but with cramer's v 
+chi2cleanup3<-function(table){
+  
+  # read in one of the chi square tables (nt, nwd, nws or nwsd)
+  frame<-as.data.frame(table,row.names = rownames(table))
+  frame<-frame[-c(4)] # drop the extra p value column
+  names(frame) = c('X2','P-Value','Cramers V')
   fin = na.omit(frame) 
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
