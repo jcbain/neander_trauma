@@ -109,16 +109,16 @@ n_s<-chi2cleanup(nws)   # neanderthal w/o shan
 n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
 
 # find similar activities per sample 
-n_tot$similar
-n_djd$similar
-n_s$similar
-n_sd$similar
+n_tot$similar   # neanderthal total
+n_djd$similar   # neanderthal w/o djd
+n_s$similar     # neanderthal w/o shan
+n_sd$similar    # neanderthal w/o shan or djd
 
 # now what does rodeo riders look like in comparison to the neanderthal samples
-n_tot$final['rodeo',]
-n_djd$final['rodeo',]
-n_s$final['rodeo',]
-n_sd$final['rodeo',]
+n_tot$final['rodeo',]   # neanderthal total
+n_djd$final['rodeo',]   # neanderthal w/o djd
+n_s$final['rodeo',]     # neanderthal w/o shan
+n_sd$final['rodeo',]    # neanderthal w/o shan or djd
 
 #############################################################
 ## finding activities that are not statistically different ##

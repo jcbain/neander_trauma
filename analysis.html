@@ -198,8 +198,8 @@ n_tot&lt;-chi2cleanup(nt)  # neanderthal total
 n_djd&lt;-chi2cleanup(nwd) # neanderthal w/o djd
 n_s&lt;-chi2cleanup(nws)   # neanderthal w/o shan
 n_sd&lt;-chi2cleanup(nwsd) # neanderthal w/o shan or djd</code></pre>
-<pre class="r"><code># find similar activities per sample 
-n_tot$similar</code></pre>
+<p>Find similar activities per sample</p>
+<pre class="r"><code>n_tot$similar   # neanderthal total</code></pre>
 <pre><code>##                                   X2    P-Value Cramers V
 ## altar                       3.576823 0.73372229 0.2293476
 ## banisters                  11.100461 0.08532075 0.4265850
@@ -217,7 +217,7 @@ n_tot$similar</code></pre>
 ## swimsuit                    7.175379 0.30493252 0.2165592
 ## water tubing                2.973634 0.81214870 0.1667062
 ## windsurfing                12.534779 0.05104817 0.2221475</code></pre>
-<pre class="r"><code>n_djd$similar</code></pre>
+<pre class="r"><code>n_djd$similar   # neanderthal w/o djd</code></pre>
 <pre><code>##                                   X2    P-Value  Cramers V
 ## altar                       4.682090 0.58518450 0.27047673
 ## baseball                    6.979352 0.32276095 0.04624864
@@ -231,7 +231,7 @@ n_tot$similar</code></pre>
 ## roller hockey               8.292168 0.21747021 0.38828687
 ## swimsuit                    9.449321 0.14984055 0.25182983
 ## water tubing                5.801308 0.44581190 0.23732547</code></pre>
-<pre class="r"><code>n_s$similar</code></pre>
+<pre class="r"><code>n_s$similar     # neanderthal w/o shan</code></pre>
 <pre><code>##                                       X2    P-Value  Cramers V
 ## altar                           1.972567 0.92220419 0.17836929
 ## banisters                      11.173352 0.08316429 0.45072369
@@ -255,7 +255,7 @@ n_tot$similar</code></pre>
 ## swimsuit                        6.633137 0.35610991 0.21242265
 ## water tubing                    2.910867 0.81994803 0.16976590
 ## windsurfing                     9.849892 0.13111741 0.19929201</code></pre>
-<pre class="r"><code>n_sd$similar</code></pre>
+<pre class="r"><code>n_sd$similar    # neanderthal w/o shan or djd</code></pre>
 <pre><code>##                                    X2    P-Value  Cramers V
 ## altar                        4.315178 0.63410647 0.27044152
 ## baseball                     6.189503 0.40230034 0.04358653
@@ -275,6 +275,19 @@ n_tot$similar</code></pre>
 ## snow tubing                 12.332112 0.05495688 0.45335991
 ## swimsuit                     9.999291 0.12468188 0.26351380
 ## water tubing                 6.295139 0.39095341 0.25344844</code></pre>
+<p>Lets look at what Rodeo Riders look like in comparison to the Neanderthal samples</p>
+<pre class="r"><code>n_tot$final['rodeo',]   # neanderthal total</code></pre>
+<pre><code>##             X2     P-Value Cramers V
+## rodeo 23.62703 0.000611504 0.2198114</code></pre>
+<pre class="r"><code>n_djd$final['rodeo',]   # neanderthal w/o djd</code></pre>
+<pre><code>##             X2     P-Value Cramers V
+## rodeo 22.25172 0.001090031 0.2141958</code></pre>
+<pre class="r"><code>n_s$final['rodeo',]     # neanderthal w/o shan</code></pre>
+<pre><code>##             X2    P-Value Cramers V
+## rodeo 16.68168 0.01052714 0.1858431</code></pre>
+<pre class="r"><code>n_sd$final['rodeo',]    # neanderthal w/o shan or djd</code></pre>
+<pre><code>##             X2    P-Value Cramers V
+## rodeo 16.43343 0.01160729 0.1850306</code></pre>
 <pre class="r"><code>similarSelector&lt;-function(frame,final_frame,neander_sample){ 
   
   require(reshape)
