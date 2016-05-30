@@ -232,24 +232,24 @@ plotMaker<-function(total_frame,neander_frame,rodeo_frame){
 
 The total sample 
 
-```{r}
+```{r, fig.height=8,fig.width=10}
 plotMaker(simToNeanderTotal,n2,n3)
 ```
 
 The sample with out djd
 
-```{r}
+```{r, fig.height=8,fig.width=10}
 plotMaker(simToNeanderWOdjd,d2,d3)
 ```
 
 The sample without Shandidar 
 
-```{r}
+```{r, fig.height=8,fig.width=10}
 plotMaker(simToNeanderWOShan,s2,s3)
 ```
 
 The sample without djd or Shan
 
-```{r}
+```{r, fig.height=8,fig.width=10}
 plotMaker(simToNeanderWOdjdOrShan,sd,sd3)
 ```
