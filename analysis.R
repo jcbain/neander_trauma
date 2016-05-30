@@ -230,15 +230,15 @@ sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 ######################################################################
 ## plotting ##########################################################
 ######################################################################
-ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly above
+ggplot(data=simToNeanderWOdjd, # this needs to be one of the dataframes directly above
        aes(x=factor(variable), y=value, 
            group=sample,
            color=sample)) + 
   geom_line() + 
   geom_point() +
-  geom_point(data=n2,aes(x=factor(variable), y=value, 
+  geom_point(data=d2,aes(x=factor(variable), y=value, 
                          group=sample, size = 4))+
-  geom_line(data=n2,aes(x=factor(variable), y=value, 
+  geom_line(data=d2,aes(x=factor(variable), y=value, 
                         group=sample, size = 2))+ 
   scale_x_discrete("Proportion") +
   scale_y_continuous("Body Part")+
@@ -254,7 +254,7 @@ plotMaker<-function(total_frame,neander_frame){
     geom_point() +
     geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
                                       group=sample, size = 4))+
-    geom_line(data=n2,aes(x=factor(variable), y=value, 
+    geom_line(data=neader_frame,aes(x=factor(variable), y=value, 
                           group=sample, size = 2))+ 
     scale_x_discrete("Proportion") +
     scale_y_continuous("Body Part")+
