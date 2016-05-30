@@ -126,3 +126,88 @@ n_djd<-chi2cleanup(nwd) # neanderthal w/o djd
 n_s<-chi2cleanup(nws)   # neanderthal w/o shan
 n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
 ```
+
+```{r}
+# find similar activities per sample 
+n_tot$similar
+n_djd$similar
+n_s$similar
+n_sd$similar
+```
+
+```{r}
+similarSelector<-function(frame,final_frame,neander_sample){ 
+  
+  require(reshape)
+  require(plyr)
+  indices=rownames(frame$similar)               # find rows to set as indices
+  new_rows = final_frame[indices,]              # map those to original contigency table
+  
+  sample =append("neander",rownames(new_rows))  # add a new vector to use a "sample" column
+  
+  joined_rows = rbind(neander_sample,new_rows) # join rows from neanderthal sample to new dataframe
+  props = prop.table(as.table(as.matrix(joined_rows)),1)
+
+  props<-as.data.frame.matrix(props)
+  joined_cols = cbind(sample,props)       # add the "sample" column
+  rownames(joined_cols) = NULL                  # remove the row indices 
+  
+  melted <- melt(joined_cols, id=(c("sample"))) # transpose contigency table
+  
+  return(melted)                
+}
+```
+
+```{r}
+# an example of how similarSelector works
+simToNeanderTotal<-similarSelector(n_tot,final,sample1)
+simToNeanderWOdjd<-similarSelector(n_djd,final,sample2)
+simToNeanderWOShan<-similarSelector(n_s,final,sample3)
+simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,sample4)
+```
+
+```{r}
+# extract just the neanderthal row for emphasis in plots
+n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
+d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
+s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
+sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
+```
+
+```{r}
+ggplot(data=simToNeanderTotal, # this needs to be one of the dataframes directly above
+       aes(x=factor(variable), y=value, 
+           group=sample,
+           color=sample)) + 
+  geom_line() + 
+  geom_point() +
+  geom_point(data=n2,aes(x=factor(variable), y=value, 
+                         group=sample, size = 4))+
+  geom_line(data=n2,aes(x=factor(variable), y=value, 
+                        group=sample, size = 2))+ 
+  scale_x_discrete("Proportion") +
+  scale_y_continuous("Body Part")+
+  guides(size=FALSE)
+```
+
+```{r}
+plotMaker<-function(total_frame,neander_frame){
+  ggplot(data=total_frame, # this needs to be one of the dataframes directly above
+       aes(x=factor(variable), y=value, 
+           group=sample,
+           color=sample)) + 
+    geom_line() + 
+    geom_point() +
+    geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
+                         group=sample, size = 4))+
+    geom_line(data=n2,aes(x=factor(variable), y=value, 
+                        group=sample, size = 2))+ 
+    scale_x_discrete("Proportion") +
+    scale_y_continuous("Body Part")+
+    guides(size=FALSE)
+}
+```
+
+```{r}
+plotMaker(simToNeanderWOShan,s2)
+```
