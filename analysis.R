@@ -254,12 +254,15 @@ plotMaker<-function(total_frame,neander_frame){
     geom_point() +
     geom_point(data=neander_frame,aes(x=factor(variable), y=value, 
                                       group=sample, size = 4))+
-    geom_line(data=neader_frame,aes(x=factor(variable), y=value, 
+    geom_line(data=neander_frame,aes(x=factor(variable), y=value, 
                           group=sample, size = 2))+ 
     scale_x_discrete("Proportion") +
     scale_y_continuous("Body Part")+
     guides(size=FALSE)
 }
 
-
+plotMaker(simToNeanderTotal,n2)
+plotMaker(simToNeanderWOdjd,d2)
+plotMaker(simToNeanderWOShan,s2)
+plotMaker(simToNeanderWOdjdOrShan,sd)
 

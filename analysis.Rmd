@@ -6,8 +6,8 @@ output: html_document
 ---
 
 Let's read in some packages first...oh...and set the working directory
-```{r}
-setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
+```{r, echo=FALSE,warning=FALSE}
+#setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 
 library(plyr)       
 library(ggplot2)    
@@ -60,7 +60,7 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 
 Now it is time to run the actual analysis. We are going to create some tables the involve running a chi square test on all of the samples against all of the activities as well as calculating *Cramer's V*.
 
-```{r}
+```{r, warning=FALSE}
 # total sample
 nt<-t(apply(final,1,function(x) {
   new<- cbind(sample1,x)
@@ -217,6 +217,28 @@ plotMaker<-function(total_frame,neander_frame){
 }
 ```
 
+## Plots
+
+The total sample 
+
+```{r}
+plotMaker(simToNeanderTotal,n2)
+```
+
+The sample with out djd
+
+```{r}
+plotMaker(simToNeanderWOdjd,d2)
+```
+
+The sample without Shandidar 
+
 ```{r}
 plotMaker(simToNeanderWOShan,s2)
+```
+
+The sample without djd or Shan
+
+```{r}
+plotMaker(simToNeanderWOdjdOrShan,sd)
 ```
