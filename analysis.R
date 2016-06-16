@@ -6,7 +6,7 @@ library(ggplot2)    # #
 library(plotly)     # #
 library(reshape)    # #
 library(vcd)        # #
-library(DescTools)  # #
+library(DescTools)  # #    
 #######################
 
 # read in the data
@@ -41,6 +41,8 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 ##############################
 ######### CRAMER'S V #########
 ##############################
+
+chi.square.test(sample4,final[1,])
 
 # total sample
 nt<-t(apply(final,1,function(x) {
