@@ -32,6 +32,7 @@ trunk <- tm$`upper trunk` + tm$back
 final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
 
+
 # recreate data from Berger Trinkaus papers
 sample1<-c(8,4,7,1,1,3,3) # total sample
 sample2<-c(7,4,7,1,0,3,1) # without djd
@@ -42,7 +43,37 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 ######### CRAMER'S V #########
 ##############################
 
-chi.square.test(sample4,final[1,])
+nt<-t(apply(final,1,function(x) {
+  new<- cbind(sample1,x)
+  ch <- CramerV(new,conf.level=0.90)
+}))
+
+final2<-final[-c(6,9),]
+
+nwd<-t(apply(final2,1,function(x) {
+  new<- cbind(sample2,x)
+  ch <- CramerV(new,conf.level=0.90)
+}))
+
+# sample without shandidar
+nws<-t(apply(final,1,function(x) {
+  new<- cbind(sample3,x)
+  ch <- CramerV(new,conf.level=0.90)
+}))
+
+##########################################
+#####DEBUG################################
+##########################################
+# sample without shandidar or djd        #
+
+final3<-final[-c(5,6,9,14,26,54,70)]     #
+
+nwsd<-t(apply(final3,1,function(x) {     #
+  new<- cbind(sample4,x)
+  ch <- CramerV(new,conf.level=0.90)     #
+}))
+
+##########################################
 
 # total sample
 nt<-t(apply(final,1,function(x) {
