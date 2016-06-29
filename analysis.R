@@ -44,14 +44,14 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 ##############################
 
 neander_total_stat_table<-t(apply(final,1,function(x) {
-  two_rows    =   cbind(sample1,x)
-  cramer_stat =   CramerV(two_rows,conf.level=0.90)
-  chi2test    =   chisq.test(two_rows)
-  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
-  frame       =   cbind(cramer_stat,chi2_cols)
-  final_frame =   frame[-c(6)]
-  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")
-  return(final_frame)
+  two_rows    =   cbind(sample1,x)                      # compare each row with neanderthal sample
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)     # perform cramer's v and find confidence intervals
+  chi2test    =   chisq.test(two_rows)                  # perform chi square
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)   # grab chi square and p-value
+  frame       =   cbind(cramer_stat,chi2_cols)          # bind cramer's v, conf intervals, chi square and p-value together
+  final_frame =   frame[-c(6)]                          # drop stupid extra chi square column
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")   # name columns
+  return(final_frame)                                   # return frame
 }))
 
 final2<-final[-c(6,9),]
