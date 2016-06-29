@@ -60,41 +60,59 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 Now it is time to run the actual analysis. We are going to create some tables the involve running a chi square test on all of the samples against all of the activities as well as calculating *Cramer's V*.
 
 ```{r, warning=FALSE}
-# total sample
-nt<-t(apply(final,1,function(x) {
-  new<- cbind(sample1,x)
-  ch <- chisq.test(new)
-  chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new)
-  cbind(chi,cram)
+# total neanderthal sample
+neander_total_stat_table<-t(apply(final,1,function(x) {
+  two_rows    =   cbind(sample1,x)                      # compare each row with neanderthal sample
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)     # perform cramer's v and find confidence intervals
+  chi2test    =   chisq.test(two_rows)                  # perform chi square
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)   # grab chi square and p-value
+  frame       =   cbind(cramer_stat,chi2_cols)          # bind cramer's v, conf intervals, chi square and p-value together
+  final_frame =   frame[-c(6)]                          # drop stupid extra chi square column
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")   # name columns
+  return(final_frame)                                   # return frame
 }))
 
-# sample with out djd
-nwd<-t(apply(final,1,function(x) {
-  new<- cbind(sample2,x)
-  ch <- chisq.test(new)
-  chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new)
-  cbind(chi,cram)
+final2<-final[-c(6,9),]
+
+neander_wo_djd_stat_table<-t(apply(final2,1,function(x) {
+  two_rows    =   cbind(sample2,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")
+  return(final_frame)
 }))
 
 # sample without shandidar
-nws<-t(apply(final,1,function(x) {
-  new<- cbind(sample3,x)
-  ch <- chisq.test(new)
-  chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new)
-  cbind(chi,cram)
+neander_wo_shan_stat_table<-t(apply(final,1,function(x) {
+  two_rows    =   cbind(sample3,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")
+  return(final_frame)
 }))
 
-# sample without shandidar or djd
-nwsd<-t(apply(final,1,function(x) {
-  new<- cbind(sample4,x)
-  ch <- chisq.test(new)
-  chi<-c(unname(ch$statistic), ch$p.value)
-  cram<-CramerV(new)
-  cbind(chi,cram)
+
+# sample without shandidar or djd        
+
+final3<-final[-c(5,6,9,14,26,54,70),]     
+
+neander_wo_djd_shan_stat_table<-t(apply(final3,1,function(x) {     
+  two_rows    =   cbind(sample4,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")
+  return(final_frame)
 }))
+
 ```
 
 Create a function to clean up some vital information about the Chi Square test
@@ -102,17 +120,16 @@ Create a function to clean up some vital information about the Chi Square test
 ```{r}
 chi2cleanup<-function(table){
   
-  # read in one of the chi square tables (nt, nwd, nws or nwsd)
+  # read in one of the chi square tables (neander_total_stat_table, neander_wo_djd_stat_table, neander_wo_shan_stat_table or neander_wo_djd_shan_stat_table)
   frame<-as.data.frame(table,row.names = rownames(table))
-  frame<-frame[-c(4)] # drop the extra p value column
-  names(frame) = c('X2','P-Value','Cramers V')
+  names(frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")
   fin = na.omit(frame) 
   
   # create two callable objects, 1) the rows that have NAs and 2) the final data frame for some final manipulation
   c<- list(
-    rowna=frame[is.nan(frame$X2),],   # $rowna 
+    rowna=frame[is.nan(frame$`chi square`),],   # $rowna 
     final=fin,                        # $final
-    similar=fin[fin$`P-Value` > .05,] # $similar (activities that are similar, P > 0.05)
+    similar=fin[fin$`p-value` > .05,] # $similar (activities that are similar, P > 0.05)
   )
   return(c)
 }
@@ -122,10 +139,10 @@ chi2cleanup<-function(table){
 
 ```{r}
 # name cleaned up chi square tables
-n_tot<-chi2cleanup(nt)  # neanderthal total
-n_djd<-chi2cleanup(nwd) # neanderthal w/o djd
-n_s<-chi2cleanup(nws)   # neanderthal w/o shan
-n_sd<-chi2cleanup(nwsd) # neanderthal w/o shan or djd
+n_tot<-chi2cleanup(neander_total_stat_table)  # neanderthal total
+n_djd<-chi2cleanup(neander_wo_djd_stat_table) # neanderthal w/o djd
+n_s<-chi2cleanup(neander_wo_shan_stat_table)   # neanderthal w/o shan
+n_sd<-chi2cleanup(neander_wo_djd_shan_stat_table) # neanderthal w/o shan or djd
 ```
 
 Find similar activities per sample
