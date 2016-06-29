@@ -46,6 +46,8 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 nt<-t(apply(final,1,function(x) {
   new<- cbind(sample1,x)
   ch <- CramerV(new,conf.level=0.90)
+  x <- chisq.test(new)
+  chi<-c(unname(x$statistic), x$p.value)
 }))
 
 final2<-final[-c(6,9),]
@@ -53,12 +55,16 @@ final2<-final[-c(6,9),]
 nwd<-t(apply(final2,1,function(x) {
   new<- cbind(sample2,x)
   ch <- CramerV(new,conf.level=0.90)
+  x <- chisq.test(new)
+  chi<-c(unname(x$statistic), x$p.value)
 }))
 
 # sample without shandidar
 nws<-t(apply(final,1,function(x) {
   new<- cbind(sample3,x)
   ch <- CramerV(new,conf.level=0.90)
+  x <- chisq.test(new)
+  chi<-c(unname(x$statistic), x$p.value)
 }))
 
 
@@ -68,7 +74,9 @@ final3<-final[-c(5,6,9,14,26,54,70),]
 
 nwsd<-t(apply(final3,1,function(x) {     
   new<- cbind(sample4,x)
-  ch <- CramerV(new,conf.level=0.90)     
+  ch <- CramerV(new,conf.level=0.90)
+  x <- chisq.test(new)
+  chi<-c(unname(x$statistic), x$p.value)
 }))
 
 
