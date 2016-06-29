@@ -44,27 +44,36 @@ sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
 ##############################
 
 nt<-t(apply(final,1,function(x) {
-  new<- cbind(sample1,x)
-  ch <- CramerV(new,conf.level=0.90)
-  x <- chisq.test(new)
-  chi<-c(unname(x$statistic), x$p.value)
+  two_rows    =   cbind(sample1,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  return(final_frame)
 }))
 
 final2<-final[-c(6,9),]
 
 nwd<-t(apply(final2,1,function(x) {
-  new<- cbind(sample2,x)
-  ch <- CramerV(new,conf.level=0.90)
-  x <- chisq.test(new)
-  chi<-c(unname(x$statistic), x$p.value)
+  two_rows    =   cbind(sample2,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  return(final_frame)
 }))
 
 # sample without shandidar
 nws<-t(apply(final,1,function(x) {
-  new<- cbind(sample3,x)
-  ch <- CramerV(new,conf.level=0.90)
-  x <- chisq.test(new)
-  chi<-c(unname(x$statistic), x$p.value)
+  two_rows    =   cbind(sample3,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  return(final_frame)
 }))
 
 
@@ -73,10 +82,13 @@ nws<-t(apply(final,1,function(x) {
 final3<-final[-c(5,6,9,14,26,54,70),]     
 
 nwsd<-t(apply(final3,1,function(x) {     
-  new<- cbind(sample4,x)
-  ch <- CramerV(new,conf.level=0.90)
-  x <- chisq.test(new)
-  chi<-c(unname(x$statistic), x$p.value)
+  two_rows    =   cbind(sample4,x)
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)
+  chi2test    =   chisq.test(two_rows)
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
+  frame       =   cbind(cramer_stat,chi2_cols)
+  final_frame =   frame[-c(6)]
+  return(final_frame)
 }))
 
 
@@ -127,7 +139,7 @@ nwsd<-t(apply(final,1,function(x) {
 chi2cleanup<-function(table){
   
   # read in one of the chi square tables (nt, nwd, nws or nwsd)
-  frame<-as.data.frame(table,row.names = rownames(table))
+  frame<-as.data.frame(table,row.names = c('cramer v','u_ci'))
   frame<-frame[-c(4)] # drop the extra p value column
   names(frame) = c('X2','P-Value','Cramers V')
   fin = na.omit(frame) 
