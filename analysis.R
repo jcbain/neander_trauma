@@ -61,17 +61,16 @@ nws<-t(apply(final,1,function(x) {
   ch <- CramerV(new,conf.level=0.90)
 }))
 
-##########################################
-#####DEBUG################################
-##########################################
-# sample without shandidar or djd        #
 
-final3<-final[-c(5,6,9,14,26,54,70)]     #
+# sample without shandidar or djd        
 
-nwsd<-t(apply(final3,1,function(x) {     #
+final3<-final[-c(5,6,9,14,26,54,70),]     
+
+nwsd<-t(apply(final3,1,function(x) {     
   new<- cbind(sample4,x)
-  ch <- CramerV(new,conf.level=0.90)     #
+  ch <- CramerV(new,conf.level=0.90)     
 }))
+
 
 ##########################################
 
