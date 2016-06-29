@@ -50,6 +50,7 @@ nt<-t(apply(final,1,function(x) {
   chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
   frame       =   cbind(cramer_stat,chi2_cols)
   final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", ";.ci", "u.ci", "chi square", "p-value")
   return(final_frame)
 }))
 
@@ -62,6 +63,7 @@ nwd<-t(apply(final2,1,function(x) {
   chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
   frame       =   cbind(cramer_stat,chi2_cols)
   final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", ";.ci", "u.ci", "chi square", "p-value")
   return(final_frame)
 }))
 
@@ -73,6 +75,7 @@ nws<-t(apply(final,1,function(x) {
   chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
   frame       =   cbind(cramer_stat,chi2_cols)
   final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", ";.ci", "u.ci", "chi square", "p-value")
   return(final_frame)
 }))
 
@@ -88,6 +91,7 @@ nwsd<-t(apply(final3,1,function(x) {
   chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)
   frame       =   cbind(cramer_stat,chi2_cols)
   final_frame =   frame[-c(6)]
+  names(final_frame) = c("cramer's v", ";.ci", "u.ci", "chi square", "p-value")
   return(final_frame)
 }))
 
