@@ -12,7 +12,7 @@ library(plyr)
 library(ggplot2)
 
 ## read in the file ##
-sport <- read.csv('Data/NEISS/sport_final.csv')
+sport <- read.csv('~/Documents/research/neander_trauma/Data/NEISS/sport_final.csv')
 
 ## aggregate the data by body part of the facture and cause ##
 count(sport, 'prod1')

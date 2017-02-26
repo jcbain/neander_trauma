@@ -3,7 +3,7 @@ setwd(dir='Desktop/Spring 2016/Neander_Trauma/')
 library(plyr)
 
 # read in the data
-df <- read.csv('Data/NEISS/sport_category_final.csv')
+df <- read.csv('~/Documents/research/neander_trauma/Data/NEISS/sport_category_final.csv')
 
 # create a contigency table 
 orig_table <- table(df$prod1,df$body_part)
@@ -25,4 +25,4 @@ final<-as.data.frame(cbind(head_neck,shoulder_arm,hand,pelvis,leg,foot,trunk))
 rownames(final)<-rownames(tm) # index will be the activity name
 
 # write the contigency table (data frame) to a csv
-write.csv(final,file = 'Data/contigency.csv' )
+write.csv(final,file = '~/Documents/research/neander_trauma/Data/contigency.csv' )
