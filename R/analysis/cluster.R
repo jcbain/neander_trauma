@@ -1,7 +1,7 @@
 # PCA and Cluster Analysis
 # James C. Bain & Libby Cowgill
 
-# 
+# https://www.r-bloggers.com/computing-and-visualizing-pca-in-r/
 
 
 library(ggplot2)
