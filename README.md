@@ -1,5 +1,5 @@
 # Neanderthal Trauma
-## a reanalysis of *Berger & Trinkaus (1992)*
+## a reanalysis of *Berger & Trinkaus (1995)*
 
 This project is an extended analysis to see if the unique trauma patterns found on Neanderthals match a larger sampling base. Data come from the National Electronic Injury Surveillance System (NEISS) and has primarily been filtered down to injuries related to sports activities.
 ### Contents
