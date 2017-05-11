@@ -14,7 +14,8 @@ file <- '~/Documents/research/neander_trauma/Data/contingency_norm.csv'
 
 df <- read.csv(file)
 
-#rownames(df) <- df$X
+rownames(df) <- df$X
+
 
 df <- df %>%
   select(-c(`X.1`))
@@ -28,14 +29,14 @@ df %>%
   filter(cluster == 5) %>%
   select(`X`)
 
-
+s <-scale(df[,2:8])
 # log transform 
 log.ir <- log(df[, 2:8])
 ir.cluster <- df$cluster
 
 # apply PCA - scale. = TRUE is highly 
 # advisable, but default is FALSE. 
-ir.pca <- prcomp(df[,2:7],
+ir.pca <- prcomp(s,
                  center = TRUE,
                  scale. = TRUE) 
 plot(ir.pca, type = "l")
@@ -45,3 +46,7 @@ g <- ggbiplot(ir.pca, obs.scale = 1, var.scale = 1,
               circle = TRUE)
 g <- g + theme(legend.direction = 'horizontal', 
                legend.position = 'top')
+
+
+clusters <- hclust(dist(df[,2:8]))
+plot(clusters)
