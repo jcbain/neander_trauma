@@ -11,8 +11,23 @@ library(devtools)
 library(ggbiplot)
 
 file <- '~/Documents/research/neander_trauma/Data/contingency_norm.csv'
+file2<- '~/Documents/research/neander_trauma/Data/neander_contingency_norm.csv'
 
-df <- read.csv(file)
+activities <- read.csv(file)
+neander <- read.csv(file2)
+
+berger <- data.frame(X = c('bt5','libben','nubia','london','new york','new mexico','bt rodeo'),
+                     head_neck = c(4, 6, 17, 108, 1640, 13, 71),
+                     trunk = c(114,20,11,121,1469,99,18),
+                     shoulder_arm = c(50,28,85,547,3025,183,47),
+                     hand = c(14,0,3,421,2624,187,11),
+                     pelvis = c(7,0,6,3,65,17,6),
+                     leg = c(20,37,36,409,2466,88,11),
+                     foot = c(14,3,2,121,670,205,17)
+                     )
+
+
+df <- rbind(activities,neander)
 
 rownames(df) <- df$X
 
