@@ -99,7 +99,7 @@ plot(act.hclust,main='Default from hclust')
 model <- agnes(d)
 dg <- as.dendrogram(model)
 ggdendrogram(dg)
-
+#ggsave('~/Documents/research/neander_trauma/images/plots/agnes.png',width = 12)
 
 cutree(model,25)
 t <- table(cutree(model,25),group.25)
