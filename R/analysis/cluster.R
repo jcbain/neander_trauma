@@ -48,13 +48,29 @@ df <- df %>%
 df <- rbind(df, berg_norm)
 rownames(df) <- df$X
 
+# http://www.sthda.com/english/wiki/cluster-analysis-in-r-unsupervised-machine-learning
+
 # distance matrix plotting
 res.dist <- get_dist(df[,2:8], stand = TRUE, method = "pearson")
 fviz_dist(res.dist, 
           gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 
+# optimal amount of groups
+fviz_nbclust(df[,2:8], kmeans, method = "wss")
+fviz_nbclust(df[,2:8], kmeans, method = "silhouette")
 
 
+km.res <- kmeans(df[,2:8], 6, nstart = 25)
+
+fviz_cluster(km.res, data = df[,2:8], frame.type = "convex")+
+  theme_minimal()
+
+# compute PAM
+pam.res <- pam(df[,2:8], 6)
+# Visualize
+fviz_cluster(pam.res) + theme_minimal()
+
+# older code
 k <- kmeans(df[2:8],6, nstart = 25)
 
 df$cluster <- k$cluster
