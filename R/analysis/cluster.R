@@ -11,6 +11,7 @@ library(devtools)
 library(ggbiplot)
 library(cluster)
 library(ggdendro)
+library(factoextra)
 
 file <- '~/Documents/research/neander_trauma/Data/contingency_norm.csv'
 file2<- '~/Documents/research/neander_trauma/Data/neander_contingency_norm.csv'
@@ -47,6 +48,10 @@ df <- df %>%
 df <- rbind(df, berg_norm)
 rownames(df) <- df$X
 
+# distance matrix plotting
+res.dist <- get_dist(df[,2:8], stand = TRUE, method = "pearson")
+fviz_dist(res.dist, 
+          gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 
 
 
