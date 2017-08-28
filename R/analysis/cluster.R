@@ -8,10 +8,11 @@ library(ggplot2)
 library(tidyr)
 library(dplyr)
 library(devtools)
-library(ggbiplot)
+#library(ggbiplot)
 library(cluster)
 library(ggdendro)
 library(factoextra)
+library(ggfortify)
 
 file <- '~/Documents/research/neander_trauma/Data/contingency_norm.csv'
 file2<- '~/Documents/research/neander_trauma/Data/neander_contingency_norm.csv'
@@ -69,6 +70,23 @@ fviz_cluster(km.res, data = df[,2:8], frame.type = "convex")+
 pam.res <- pam(df[,2:8], 6)
 # Visualize
 fviz_cluster(pam.res) + theme_minimal()
+
+
+
+# principle components
+
+pc <- prcomp(df[,2:8], scale. = T)
+names(pc)
+pc$rotation
+dim(pc$x)
+
+# plot principle components
+fviz_pca(pc)
+
+biplot(pc,var.axes = T, scale = 0)
+autoplot(pc)
+
+
 
 # older code
 k <- kmeans(df[2:8],6, nstart = 25)
