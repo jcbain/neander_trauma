@@ -15,6 +15,7 @@ library(factoextra)
 library(ggfortify)
 library(magrittr)
 
+# https://stackoverflow.com/questions/21619794/what-makes-the-distance-measure-in-k-medoid-better-than-k-means
 
 df <- read.csv('~/Documents/research/neander_trauma/Data/contingency_norm.csv',
                stringsAsFactors = FALSE)
@@ -24,7 +25,8 @@ rownames(df) <- df$X
 # http://www.sthda.com/english/wiki/cluster-analysis-in-r-unsupervised-machine-learning
 
 # distance matrix plotting
-res.dist <- get_dist(df[,2:8], stand = TRUE, method = "pearson")
+# res.dist <- get_dist(df[,2:8], stand = TRUE, method = "pearson")
+res.dist <- get_dist(df[,2:8], stand = TRUE, method = "manhattan")
 fviz_dist(res.dist, 
           gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 
@@ -32,12 +34,12 @@ fviz_dist(res.dist,
 fviz_nbclust(df[,2:8], kmeans, method = "wss")
 fviz_nbclust(df[,2:8], kmeans, method = "silhouette")
 
-km.res <- kmeans(df[,2:8], 4, nstart = 25)
+fviz_nbclust(df[,2:8], cluster::pam, method = "silhouette")
 
-fviz_cluster(km.res, data = df[,2:8], ellipse.type = "convex")+
-  theme_minimal()
-
-
+# compute PAM
+pam.res <- pam(df[,2:8], 3)
+# Visualize
+fviz_cluster(pam.res) + theme_minimal()
     # ~~~~~~~~~~~ #
     # OLD CONTENT #
     # ~~~~~~~~~~~ #
@@ -76,6 +78,8 @@ df <- df %>%
 
 df <- rbind(df, berg_norm)
 rownames(df) <- df$X
+
+pam.res <- pam(df[,2:8], 4)
 
 # http://www.sthda.com/english/wiki/cluster-analysis-in-r-unsupervised-machine-learning
 
