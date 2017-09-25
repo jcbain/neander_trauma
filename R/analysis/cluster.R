@@ -13,6 +13,34 @@ library(cluster)
 library(ggdendro)
 library(factoextra)
 library(ggfortify)
+library(magrittr)
+
+
+df <- read.csv('~/Documents/research/neander_trauma/Data/contingency_norm.csv',
+               stringsAsFactors = FALSE)
+df %<>%select(-c(`X.1`))
+rownames(df) <- df$X
+
+# http://www.sthda.com/english/wiki/cluster-analysis-in-r-unsupervised-machine-learning
+
+# distance matrix plotting
+res.dist <- get_dist(df[,2:8], stand = TRUE, method = "pearson")
+fviz_dist(res.dist, 
+          gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
+
+# optimal amount of groups
+fviz_nbclust(df[,2:8], kmeans, method = "wss")
+fviz_nbclust(df[,2:8], kmeans, method = "silhouette")
+
+km.res <- kmeans(df[,2:8], 4, nstart = 25)
+
+fviz_cluster(km.res, data = df[,2:8], ellipse.type = "convex")+
+  theme_minimal()
+
+
+    # ~~~~~~~~~~~ #
+    # OLD CONTENT #
+    # ~~~~~~~~~~~ #
 
 file <- '~/Documents/research/neander_trauma/Data/contingency_norm.csv'
 file2<- '~/Documents/research/neander_trauma/Data/neander_contingency_norm.csv'
@@ -143,3 +171,5 @@ ggdendrogram(dg)
 cutree(model,25)
 t <- table(cutree(model,25),group.25)
 sum(diag(t))/sum(t)
+
+
