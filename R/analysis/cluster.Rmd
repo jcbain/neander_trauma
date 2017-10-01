@@ -42,7 +42,11 @@ df[1,]
 
 Clustering algorithms can be used to uncover patterns that are often too subtle for humans to find. They do so by calculating the distance between observation and "clustering" observations that are close to one another. Partitioning algorithms involve explicitly supplying the number of clusters $k$. Therefore, we have to find the optimal number of groups $k$ to supply our clustering algorithm. 
 
-Partitioning around Medoids (PAM)
+Partitioning around Medoids (PAM) is a partitioning algorithm much like *k-means* but instead of using a centroid as the center point of each cluster, a medoid is used instead. Medoids are attibutes of the data which represent the center most observation in a cluster of observations, whereas a centroid is an artifially created point used to represent the center of a cluster. Therefore, a centroid is more sensitive to outliers as opposed to medoids. 
+
+In order to cluster the points, PAM minimizes the following function 
+
+$$F(x)= minimize \sum_{i=1}^{n} \sum_{j=1}^{n}{d(i,j)z_{ij}}$$
 
 ### Finding the Optimal Number of Clusters 
 
