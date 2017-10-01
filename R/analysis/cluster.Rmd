@@ -31,7 +31,7 @@ df <- read.csv('~/Documents/research/neander_trauma/Data/contingency_norm.csv',
                stringsAsFactors = FALSE)
 df %<>%select(-c(`X.1`))
 rownames(df) <- df$X
-df %<>% select(-X)
+df %<>% select(-Xx)
 ```
 ```{r, echo = FALSE}
 df[1,]
