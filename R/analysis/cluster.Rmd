@@ -3,6 +3,7 @@ title: "Neandertal Cluster Analysis"
 author: "James Bain"
 date: "9/15/2017"
 output: pdf_document
+bibliography: biblio.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -20,13 +21,22 @@ library(magrittr)
 
 ## Data
 
+The data are comprised of 84 different activities compiled from a network of about 100 hospitals across the United States. This data are published in the form of Excel files and made available through the NEISS.
+
+NEISS collects information about product and activity related injuries. Details about the anatomical region, type of injury and other demographic variables are collected. Data about injuries are then transformed to be activity specific and aggregated to match the anatomical categories defined in Berger & Trinkaus [-@berger1995]. 
+
 ```{r, include=FALSE}
 # read the data
 df <- read.csv('~/Documents/research/neander_trauma/Data/contingency_norm.csv',
                stringsAsFactors = FALSE)
 df %<>%select(-c(`X.1`))
 rownames(df) <- df$X
+df %<>% select(-X)
 ```
+```{r, echo = FALSE}
+df[1,]
+```
+
 
 ## Partitioning Around Medoids (PAM)
 
