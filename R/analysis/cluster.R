@@ -30,9 +30,8 @@ res.dist <- get_dist(df[,2:8], stand = TRUE, method = "manhattan")
 fviz_dist(res.dist, 
           gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 
+
 # optimal amount of groups
-fviz_nbclust(df[,2:8], kmeans, method = "wss")
-fviz_nbclust(df[,2:8], kmeans, method = "silhouette")
 
 fviz_nbclust(df[,2:8], cluster::pam, method = "silhouette")
 
@@ -40,6 +39,8 @@ fviz_nbclust(df[,2:8], cluster::pam, method = "silhouette")
 pam.res <- pam(df[,2:8], 3)
 # Visualize
 fviz_cluster(pam.res) + theme_minimal()
+
+
     # ~~~~~~~~~~~ #
     # OLD CONTENT #
     # ~~~~~~~~~~~ #
