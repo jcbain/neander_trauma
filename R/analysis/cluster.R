@@ -36,10 +36,13 @@ fviz_dist(res.dist,
 fviz_nbclust(df[,2:8], cluster::pam, method = "silhouette")
 
 # compute PAM
-pam.res <- pam(df[,2:8], 3)
+pam.res <- pam(df[,2:8], k =3)
 # Visualize
 fviz_cluster(pam.res) + theme_minimal()
 
+# write out data
+
+#write.csv(pam.res$silinfo$widths,"~/Documents/research/neander_trauma/Data/pam_matrix.csv")
 
     # ~~~~~~~~~~~ #
     # OLD CONTENT #

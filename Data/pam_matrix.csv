@@ -1,0 +1,85 @@
+"","cluster","neighbor","sil_width"
+"wrestling",1,2,0.501763988120234
+"rolling skating",1,2,0.481110773002363
+"bicycle pumps",1,2,0.468842540614256
+"swings",1,2,0.461804662372355
+"ice hockey",1,2,0.449186004696857
+"seesaw",1,2,0.432883504816984
+"ball pits",1,2,0.427201036920826
+"snowboarding",1,3,0.421968217020191
+"play sand (for sandboxes)",1,2,0.412284872587656
+"cheerleading",1,2,0.408122364822425
+"acrobatics/gymnastics",1,2,0.400250130320664
+"standup scooter (unpowered)",1,3,0.396188184454437
+"skating (not specified)",1,3,0.381860801045417
+"climbing apparatus, playground",1,2,0.379739032467461
+"in-line skating",1,3,0.365734218641662
+"hockey (not specified)",1,3,0.364101264158829
+"mountain/all-terrain biking",1,2,0.344191961351943
+"slides",1,2,0.34113718070582
+"patios/flooring",1,2,0.337677489845975
+"benches",1,2,0.316361350725227
+"roller hockey",1,2,0.311290940188542
+"fence/fence post",1,2,0.306315866164298
+"banisters",1,2,0.296481721871135
+"ice skating",1,2,0.292041800537223
+"bounce house",1,2,0.284298541691121
+"skateboarding",1,3,0.275427367585813
+"lacrosse",1,3,0.230359660383144
+"go-carts",1,2,0.208894448240094
+"soccer",1,2,0.184365074041823
+"snow skiiing",1,2,0.171794586440756
+"two-wheeled, powered, off-road vehicles",1,2,0.156112076822575
+"bridles (horseback riding)",1,2,0.153248884834009
+"football",1,3,0.102085941746734
+"four-wheeled, all-terrain vehicles",1,2,0.0815486502044329
+"snow tubing",1,2,-0.0118019990364358
+"golf",2,1,0.450402617284925
+"swimming pools (not specified)",2,3,0.412177569471824
+"stretching exercise",2,1,0.404472168019462
+"flying discs or boomerangs",2,1,0.39936527145357
+"mountain climbing",2,1,0.398692026338847
+"built-in swimming pools",2,1,0.396622909501521
+"windsurfing",2,1,0.360231079344869
+"fishing",2,1,0.346200763842574
+"golf carts",2,1,0.318848581751325
+"swimsuit",2,3,0.307673569591851
+"dancing",2,3,0.289000494284112
+"cleats",2,3,0.285082231681989
+"deer/tree stands",2,1,0.28329566230657
+"knee boarding",2,1,0.25478727523801
+"diving board",2,3,0.232373837210739
+"stairs",2,1,0.226207875156687
+"bleachers",2,1,0.152558012201497
+"jujitsu",2,3,0.138370041864006
+"rodeo",2,1,0.129536333825414
+"treadmills",2,1,0.128275821181409
+"water slides",2,1,0.110392765787072
+"loading docks",2,1,0.109649271357765
+"pole vault",2,1,0.0977421621335181
+"rugby",2,1,0.0911412565264971
+"lawn chair",2,1,0.0847682032452547
+"water tubing",2,1,0.0687949593259394
+"trampolines",2,1,0.0170142310837931
+"all-terrain vehicles (number of wheels not specified)",2,1,0.00753494738195082
+"sleds",2,1,-0.0165711043934508
+"snowmobiles",2,1,-0.0369336112284201
+"altar",2,1,-0.110104578271186
+"ball sports (not specified)",3,1,0.547277294010364
+"bowling",3,1,0.53493320083063
+"field hockey",3,1,0.53414579647253
+"bathroom stall door",3,1,0.532512678661694
+"basketball",3,2,0.50258640345959
+"other ball sports",3,1,0.486811352953127
+"volleyball",3,2,0.446933997970605
+"punching bags",3,1,0.435131664296631
+"paddle ball",3,2,0.364268592736908
+"ceilings and walls",3,1,0.33446496059673
+"weight lifting",3,2,0.329778486280211
+"rope or string",3,1,0.323205209518668
+"pet cages",3,1,0.321303149895996
+"bouncy balls",3,1,0.293622770716979
+"poles",3,2,0.226079195094393
+"tennis",3,1,0.222915832286979
+"softball",3,2,0.200740108185529
+"baseball",3,2,0.112247304106054
