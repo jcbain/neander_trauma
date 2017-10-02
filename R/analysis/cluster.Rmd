@@ -48,9 +48,17 @@ In order to cluster the points, PAM minimizes the following function
 
 $$F(x)= minimize \sum_{i=1}^{n} \sum_{j=1}^{n}{d(i,j)z_{ij}}$$
 
-$d(i,j)$ is the disimilarity between entities $i$ and $j$ and the term $z_{ij}$ is a variable meant to ensure that only the dissimilarity of items with in the same cluster are computed toward the main function. Observations are then assigned to a cluster given that presence in that minimizes the main function $F(x)$.  
+$d(i,j)$ is the disimilarity between entities $i$ and $j$ and the term $z_{ij}$ is a variable meant to ensure that only the dissimilarity of items with in the same cluster are computed toward the main function. Observations are then assigned to a cluster given that its presence in that cluster minimizes the main function $F(x)$. 
 
 ### Finding the Optimal Number of Clusters 
+
+Partitioning clustering methods require that a dismilarity matrix between observations as well as the number of clusters $k$ as inputs to the algorithm. However, it is possible to iterate over a range of $k$s to calculate the optimal number of clusters. For this, we employ a method known as the *average silhouette* method in which the maximum average silhouette $\bar{s}$ is the optimal number of $k$ clusters for a range of values for $k$.
+
+$$s(i) = \frac{b(i)-a(i)}{max\{a(i),b(i)\}}$$ 
+
+$a(i)$ here is the average dissimilarity between observation $i$ and all other observations within its designated group. $b(i)$ the minimum average dissimalirity of $i$ to the other clusters other than its own. $b(i)$ can thus be thought of as the disimilarity between $i$ and its closest neighboring cluster. $s(i)$ is therefore a value between $-1$ and $1$ with a value closer to $1$ meaning that observation is appropriately clustered [@kaufman2009]. 
+
+
 
 
 
