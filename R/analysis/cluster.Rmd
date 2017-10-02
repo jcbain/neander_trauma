@@ -1,6 +1,6 @@
 ---
 title: "Neandertal Cluster Analysis"
-author: "James Bain"
+author: "James Bain & Libby Cowgill"
 date: "9/15/2017"
 output: pdf_document
 bibliography: biblio.bib
@@ -57,6 +57,15 @@ Partitioning clustering methods require that a dismilarity matrix between observ
 $$s(i) = \frac{b(i)-a(i)}{max\{a(i),b(i)\}}$$ 
 
 $a(i)$ here is the average dissimilarity between observation $i$ and all other observations within its designated group. $b(i)$ the minimum average dissimalirity of $i$ to the other clusters other than its own. $b(i)$ can thus be thought of as the disimilarity between $i$ and its closest neighboring cluster. $s(i)$ is therefore a value between $-1$ and $1$ with a value closer to $1$ meaning that observation is appropriately clustered [@kaufman2009]. 
+
+
+## Results
+
+Given a dissimilarity matrix caculated using *manhattan distance*, $k = 3$ is the optimal amount number of clusters given the *silhouette method*. 
+
+```{r echo = FALSE}
+fviz_nbclust(df[,1:7], cluster::pam, method = "silhouette")
+```
 
 
 
