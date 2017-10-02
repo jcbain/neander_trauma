@@ -64,25 +64,16 @@ $a(i)$ here is the average dissimilarity between observation $i$ and all other o
 Given a dissimilarity matrix caculated using *manhattan distance*, $k = 3$ is the optimal amount number of clusters given the *silhouette method*. 
 
 ```{r echo = FALSE}
-fviz_nbclust(df[,1:7], cluster::pam, method = "silhouette")
+fviz_nbclust(df[,1:7], cluster::pam, method = "silhouette") + theme_minimal()
 ```
 
 
+With $3$ clusters *PAM* outputs the following groups which can be viewed graphically by plotting them on the two top principal components.
 
-
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r echo = FALSE}
+pam.res <- pam(df[,1:7], 3)
+fviz_cluster(pam.res) + theme_minimal()
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## References
