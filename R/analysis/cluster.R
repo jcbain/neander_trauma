@@ -42,7 +42,7 @@ fviz_cluster(pam.res) + theme_minimal()
 
 # write out data
 
-#write.csv(pam.res$silinfo$widths,"~/Documents/research/neander_trauma/Data/pam_matrix.csv")
+write.csv(pam.res$silinfo$widths,"~/Documents/research/neander_trauma/Data/pam_matrix_5clust.csv")
 
     # ~~~~~~~~~~~ #
     # OLD CONTENT #
