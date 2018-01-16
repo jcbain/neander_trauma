@@ -139,12 +139,14 @@ chi2cleanup<-function(table){
 
 
 # name cleaned up chi square tables
+n_new_tot <- chi2cleanup(neander_new_total_stat_table) # new neanderthal total
 n_tot<-chi2cleanup(neander_total_stat_table)  # neanderthal total
 n_djd<-chi2cleanup(neander_wo_djd_stat_table) # neanderthal w/o djd
 n_s<-chi2cleanup(neander_wo_shan_stat_table)   # neanderthal w/o shan
 n_sd<-chi2cleanup(neander_wo_djd_shan_stat_table) # neanderthal w/o shan or djd
 
 # find similar activities per sample 
+n_new_tot$similar # new neanderthal total
 n_tot$similar   # neanderthal total
 n_djd$similar   # neanderthal w/o djd
 n_s$similar     # neanderthal w/o shan
