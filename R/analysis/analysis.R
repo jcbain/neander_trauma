@@ -153,6 +153,7 @@ n_s$similar     # neanderthal w/o shan
 n_sd$similar    # neanderthal w/o shan or djd
 
 # now what does rodeo riders look like in comparison to the neanderthal samples
+n_new_tot$final['rodeo',] # new neanderthal total
 n_tot$final['rodeo',]   # neanderthal total
 n_djd$final['rodeo',]   # neanderthal w/o djd
 n_s$final['rodeo',]     # neanderthal w/o shan
@@ -193,6 +194,7 @@ similarSelector<-function(frame,final_frame,neander_sample){
 
 
 # an example of how similarSelector works
+simToNeanderNewTotal<-similarSelector(n_new_tot,final, sample0)
 simToNeanderTotal<-similarSelector(n_tot,final,sample1)
 simToNeanderWOdjd<-similarSelector(n_djd,final,sample2)
 simToNeanderWOShan<-similarSelector(n_s,final,sample3)
