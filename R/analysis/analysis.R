@@ -35,14 +35,27 @@ rownames(final)<-rownames(tm) # index will be the activity name
 
 
 # recreate data from Berger Trinkaus papers
+sample0<-c(17,8,2,1,3,4,4) # new total
 sample1<-c(8,7,1,1,3,3,4) # total sample
 sample2<-c(7,7,1,0,3,1,4) # without djd
 sample3<-c(6,5,1,1,3,1,4) # without shandidar 1
 sample4<-c(5,5,1,0,3,0,4) # without djd or shandidar 1
 
+
 ##############################
 ######### CRAMER'S V #########
 ##############################
+
+neander_new_total_stat_table <- t(apply(final,1,function(x){
+  two_rows    =   cbind(sample0,x)                      # compare each row with neanderthal sample
+  cramer_stat =   CramerV(two_rows,conf.level=0.90)     # perform cramer's v and find confidence intervals
+  chi2test    =   chisq.test(two_rows)                  # perform chi square
+  chi2_cols   =   c(unname(chi2test$statistic), chi2test$p.value)   # grab chi square and p-value
+  frame       =   cbind(cramer_stat,chi2_cols)          # bind cramer's v, conf intervals, chi square and p-value together
+  final_frame =   frame[-c(6)]                          # drop stupid extra chi square column
+  names(final_frame) = c("cramer's v", "l.ci", "u.ci", "chi square", "p-value")   # name columns
+  return(final_frame)    
+}))
 
 neander_total_stat_table<-t(apply(final,1,function(x) {
   two_rows    =   cbind(sample1,x)                      # compare each row with neanderthal sample
@@ -56,7 +69,7 @@ neander_total_stat_table<-t(apply(final,1,function(x) {
 }))
 
 final2<-final[-c(6,9),]
-final2 <- final %>% filter(pelvis >0)
+final2 <- final[final$pelvis > 0,]
 
 neander_wo_djd_stat_table<-t(apply(final2,1,function(x) {
   two_rows    =   cbind(sample2,x)
@@ -85,7 +98,7 @@ neander_wo_shan_stat_table<-t(apply(final,1,function(x) {
 # sample without shandidar or djd        
 
 final3<-final[-c(5,6,9,14,26,54,70),]     
-final3 <- final %>% filter(pelvis >0 & foot > 0)
+final3 <- final[final$pelvis >0 & final$foot > 0,]
 
 neander_wo_djd_shan_stat_table<-t(apply(final3,1,function(x) {     
   two_rows    =   cbind(sample4,x)
