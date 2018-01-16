@@ -6,7 +6,8 @@ library(ggplot2)    # #
 library(plotly)     # #
 library(reshape)    # #
 library(vcd)        # #
-library(DescTools)  # #    
+library(DescTools)  # #
+library(dplyr)      # #
 #######################
 
 # read in the data
@@ -34,10 +35,10 @@ rownames(final)<-rownames(tm) # index will be the activity name
 
 
 # recreate data from Berger Trinkaus papers
-sample1<-c(8,4,7,1,1,3,3) # total sample
-sample2<-c(7,4,7,1,0,3,1) # without djd
-sample3<-c(6,4,5,1,1,3,1) # without shandidar 1
-sample4<-c(5,4,5,1,0,3,0) # without djd or shandidar 1
+sample1<-c(8,7,1,1,3,3,4) # total sample
+sample2<-c(7,7,1,0,3,1,4) # without djd
+sample3<-c(6,5,1,1,3,1,4) # without shandidar 1
+sample4<-c(5,5,1,0,3,0,4) # without djd or shandidar 1
 
 ##############################
 ######### CRAMER'S V #########
@@ -55,6 +56,7 @@ neander_total_stat_table<-t(apply(final,1,function(x) {
 }))
 
 final2<-final[-c(6,9),]
+final2 <- final %>% filter(pelvis >0)
 
 neander_wo_djd_stat_table<-t(apply(final2,1,function(x) {
   two_rows    =   cbind(sample2,x)
@@ -83,6 +85,7 @@ neander_wo_shan_stat_table<-t(apply(final,1,function(x) {
 # sample without shandidar or djd        
 
 final3<-final[-c(5,6,9,14,26,54,70),]     
+final3 <- final %>% filter(pelvis >0 & foot > 0)
 
 neander_wo_djd_shan_stat_table<-t(apply(final3,1,function(x) {     
   two_rows    =   cbind(sample4,x)
