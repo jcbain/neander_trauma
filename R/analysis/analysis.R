@@ -201,12 +201,14 @@ simToNeanderWOShan<-similarSelector(n_s,final,sample3)
 simToNeanderWOdjdOrShan<-similarSelector(n_sd,final,sample4)
 
 # extract just the neanderthal row for emphasis in plots
+nn2<- simToNeanderNewTotal[simToNeanderNewTotal$sample=='neander',]
 n2<-simToNeanderTotal[simToNeanderTotal$sample=='neander',]
 d2<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='neander',]
 s2<-simToNeanderWOShan[simToNeanderWOShan$sample=='neander',]
 sd<-simToNeanderWOdjdOrShan[simToNeanderWOdjdOrShan$sample=='neander',]
 
 # extract just the rodeo riders for emphasis in plots
+nn3<-simToNeanderNewTotal[simToNeanderNewTotal=='rodeo',]
 n3<-simToNeanderTotal[simToNeanderTotal$sample=='rodeo',]
 d3<-simToNeanderWOdjd[simToNeanderWOdjd$sample=='rodeo',]
 s3<-simToNeanderWOShan[simToNeanderWOShan$sample=='rodeo',]
@@ -236,6 +238,7 @@ plotMaker<-function(total_frame,neander_frame,rodeo_frame){
     guides(size=FALSE)
 }
 
+plotMaker(simToNeanderNewTotal,nn2,nn3)
 plotMaker(simToNeanderTotal,n2,n3)
 plotMaker(simToNeanderWOdjd,d2,d3)
 plotMaker(simToNeanderWOShan,s2,s3)
